@@ -2,14 +2,14 @@ import { useState, useEffect, createContext, useContext, ReactNode } from 'react
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
-type UserRole = 'student' | 'teacher' | null;
+type UserRole = 'student' | 'teacher' | 'parent' | null;
 
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   role: UserRole;
   loading: boolean;
-  signUp: (email: string, password: string, fullName: string, role: 'student' | 'teacher', educationLevel?: string) => Promise<{ error: Error | null }>;
+  signUp: (email: string, password: string, fullName: string, role: 'student' | 'teacher' | 'parent', educationLevel?: string) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     email: string, 
     password: string, 
     fullName: string, 
-    role: 'student' | 'teacher',
+    role: 'student' | 'teacher' | 'parent',
     educationLevel?: string
   ) => {
     const redirectUrl = `${window.location.origin}/`;

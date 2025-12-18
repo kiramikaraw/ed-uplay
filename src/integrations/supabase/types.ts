@@ -145,6 +145,67 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_challenge_completions: {
+        Row: {
+          challenge_id: string
+          completed_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          challenge_id: string
+          completed_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string
+          completed_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_challenge_completions_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "daily_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      daily_challenges: {
+        Row: {
+          bonus_points: number
+          challenge_date: string
+          created_at: string
+          game_id: string
+          id: string
+        }
+        Insert: {
+          bonus_points?: number
+          challenge_date: string
+          created_at?: string
+          game_id: string
+          id?: string
+        }
+        Update: {
+          bonus_points?: number
+          challenge_date?: string
+          created_at?: string
+          game_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_challenges_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       discussion_replies: {
         Row: {
           content: string
@@ -303,6 +364,27 @@ export type Database = {
           },
         ]
       }
+      parent_children: {
+        Row: {
+          child_id: string
+          created_at: string
+          id: string
+          parent_id: string
+        }
+        Insert: {
+          child_id: string
+          created_at?: string
+          id?: string
+          parent_id: string
+        }
+        Update: {
+          child_id?: string
+          created_at?: string
+          id?: string
+          parent_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -380,6 +462,73 @@ export type Database = {
             columns: ["game_id"]
             isOneToOne: false
             referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      study_group_members: {
+        Row: {
+          group_id: string
+          id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          id?: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "study_group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "study_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      study_groups: {
+        Row: {
+          class_id: string
+          created_at: string
+          creator_id: string
+          description: string | null
+          id: string
+          max_members: number
+          name: string
+        }
+        Insert: {
+          class_id: string
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          id?: string
+          max_members?: number
+          name: string
+        }
+        Update: {
+          class_id?: string
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          id?: string
+          max_members?: number
+          name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "study_groups_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
             referencedColumns: ["id"]
           },
         ]
@@ -545,7 +694,7 @@ export type Database = {
       }
     }
     Enums: {
-      app_role: "student" | "teacher"
+      app_role: "student" | "teacher" | "parent"
       difficulty: "easy" | "medium" | "hard"
       education_level: "sd" | "smp" | "sma"
       game_type: "quiz" | "drag_drop" | "memory" | "puzzle"
@@ -676,7 +825,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["student", "teacher"],
+      app_role: ["student", "teacher", "parent"],
       difficulty: ["easy", "medium", "hard"],
       education_level: ["sd", "smp", "sma"],
       game_type: ["quiz", "drag_drop", "memory", "puzzle"],
