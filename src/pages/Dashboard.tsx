@@ -16,6 +16,8 @@ import { ClassLeaderboard } from '@/components/ClassLeaderboard';
 import { AssignmentNotifications } from '@/components/AssignmentNotifications';
 import { AchievementSystem } from '@/components/AchievementSystem';
 import { DiscussionForum } from '@/components/DiscussionForum';
+import { DailyChallenge } from '@/components/DailyChallenge';
+import { StudyGroups } from '@/components/StudyGroups';
 
 interface ProfileData {
   full_name: string;
@@ -50,6 +52,10 @@ export default function Dashboard() {
     // Redirect teachers to teacher dashboard
     if (!authLoading && user && role === 'teacher') {
       navigate('/teacher');
+    }
+    // Redirect parents to parent dashboard
+    if (!authLoading && user && role === 'parent') {
+      navigate('/parent');
     }
   }, [user, role, authLoading, navigate]);
 
@@ -312,8 +318,14 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* Daily Challenge */}
+            <DailyChallenge />
+
             {/* Assignment Notifications */}
             <AssignmentNotifications />
+
+            {/* Study Groups */}
+            <StudyGroups />
 
             {/* Class Leaderboard */}
             <ClassLeaderboard />

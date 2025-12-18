@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
+import ParentDashboard from "./pages/ParentDashboard";
 import Subjects from "./pages/Subjects";
 import SubjectDetail from "./pages/SubjectDetail";
 import QuizGame from "./pages/games/QuizGame";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/teacher" element={<TeacherDashboard />} />
+            <Route path="/parent" element={<ParentDashboard />} />
             <Route path="/subjects" element={<Subjects />} />
             <Route path="/subjects/:subjectId" element={<SubjectDetail />} />
             <Route path="/play/quiz/:topicId" element={<QuizGame />} />

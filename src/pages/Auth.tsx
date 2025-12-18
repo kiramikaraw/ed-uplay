@@ -7,7 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { GraduationCap, Users, Mail, Lock, User, ArrowLeft } from 'lucide-react';
+import { GraduationCap, Users, Mail, Lock, User, ArrowLeft, Heart } from 'lucide-react';
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -19,7 +19,7 @@ const signupSchema = z.object({
   email: z.string().email('Email tidak valid'),
   password: z.string().min(6, 'Password minimal 6 karakter'),
   fullName: z.string().min(2, 'Nama minimal 2 karakter'),
-  role: z.enum(['student', 'teacher']),
+  role: z.enum(['student', 'teacher', 'parent']),
   educationLevel: z.enum(['sd', 'smp', 'sma']).optional(),
 });
 
@@ -32,8 +32,8 @@ export default function Auth() {
   const [mode, setMode] = useState<'login' | 'signup'>(
     (searchParams.get('mode') as 'login' | 'signup') || 'login'
   );
-  const [role, setRole] = useState<'student' | 'teacher'>(
-    (searchParams.get('role') as 'student' | 'teacher') || 'student'
+  const [role, setRole] = useState<'student' | 'teacher' | 'parent'>(
+    (searchParams.get('role') as 'student' | 'teacher' | 'parent') || 'student'
   );
   const [loading, setLoading] = useState(false);
 
@@ -52,7 +52,7 @@ export default function Auth() {
 
   useEffect(() => {
     const modeParam = searchParams.get('mode') as 'login' | 'signup';
-    const roleParam = searchParams.get('role') as 'student' | 'teacher';
+    const roleParam = searchParams.get('role') as 'student' | 'teacher' | 'parent';
     if (modeParam) setMode(modeParam);
     if (roleParam) setRole(roleParam);
   }, [searchParams]);
@@ -213,6 +213,18 @@ export default function Auth() {
                 <Users className={`w-6 h-6 mx-auto mb-2 ${role === 'teacher' ? 'text-secondary' : 'text-muted-foreground'}`} />
                 <p className={`font-semibold text-sm ${role === 'teacher' ? 'text-secondary' : 'text-muted-foreground'}`}>Guru</p>
               </button>
+              <button
+                type="button"
+                onClick={() => setRole('parent')}
+                className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+                  role === 'parent' 
+                    ? 'border-purple bg-purple/10' 
+                    : 'border-border hover:border-purple/50'
+                }`}
+              >
+                <Heart className={`w-6 h-6 mx-auto mb-2 ${role === 'parent' ? 'text-purple' : 'text-muted-foreground'}`} />
+                <p className={`font-semibold text-sm ${role === 'parent' ? 'text-purple' : 'text-muted-foreground'}`}>Orang Tua</p>
+              </button>
             </div>
           )}
 
@@ -330,14 +342,18 @@ export default function Auth() {
               ? 'Siap untuk belajar lagi?' 
               : role === 'student'
                 ? 'Yuk mulai petualangan belajarmu!'
-                : 'Pantau progress siswa dengan mudah!'}
+                : role === 'parent'
+                  ? 'Pantau progress anak dengan mudah!'
+                  : 'Pantau progress siswa dengan mudah!'}
           </h2>
           <p className="text-muted-foreground max-w-sm mx-auto">
             {mode === 'login'
               ? 'Lanjutkan progress belajarmu dan kumpulkan lebih banyak badge!'
               : role === 'student'
                 ? 'Belajar sambil bermain dengan game-game seru yang akan membuatmu pintar!'
-                : 'Dashboard khusus guru untuk memantau dan membantu siswa belajar dengan lebih efektif.'}
+                : role === 'parent'
+                  ? 'Lihat progress belajar anak dan dukung mereka untuk terus berkembang!'
+                  : 'Dashboard khusus guru untuk memantau dan membantu siswa belajar dengan lebih efektif.'}
           </p>
         </div>
       </div>
