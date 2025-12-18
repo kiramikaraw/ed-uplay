@@ -55,7 +55,7 @@ export default function SubjectDetail() {
         .order('order_index');
 
       if (selectedLevel !== 'all') {
-        query = query.eq('education_level', selectedLevel);
+        query = query.eq('education_level', selectedLevel as 'sd' | 'smp' | 'sma');
       }
 
       const { data: topicsData, error: topicsError } = await query;
