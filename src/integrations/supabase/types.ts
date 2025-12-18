@@ -145,6 +145,36 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_activities: {
+        Row: {
+          activity_date: string
+          created_at: string
+          games_played: number
+          id: string
+          time_spent_minutes: number
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          activity_date?: string
+          created_at?: string
+          games_played?: number
+          id?: string
+          time_spent_minutes?: number
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          activity_date?: string
+          created_at?: string
+          games_played?: number
+          id?: string
+          time_spent_minutes?: number
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: []
+      }
       daily_challenge_completions: {
         Row: {
           challenge_id: string
@@ -364,6 +394,39 @@ export type Database = {
           },
         ]
       }
+      learning_streaks: {
+        Row: {
+          created_at: string
+          current_streak: number
+          id: string
+          last_activity_date: string | null
+          longest_streak: number
+          total_xp: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_streak?: number
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number
+          total_xp?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_streak?: number
+          id?: string
+          last_activity_date?: string | null
+          longest_streak?: number
+          total_xp?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       parent_children: {
         Row: {
           child_id: string
@@ -459,6 +522,56 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "questions_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quiz_battles: {
+        Row: {
+          battle_code: string | null
+          challenger_id: string
+          challenger_score: number | null
+          completed_at: string | null
+          created_at: string
+          game_id: string | null
+          id: string
+          opponent_id: string | null
+          opponent_score: number | null
+          status: string
+          winner_id: string | null
+        }
+        Insert: {
+          battle_code?: string | null
+          challenger_id: string
+          challenger_score?: number | null
+          completed_at?: string | null
+          created_at?: string
+          game_id?: string | null
+          id?: string
+          opponent_id?: string | null
+          opponent_score?: number | null
+          status?: string
+          winner_id?: string | null
+        }
+        Update: {
+          battle_code?: string | null
+          challenger_id?: string
+          challenger_score?: number | null
+          completed_at?: string | null
+          created_at?: string
+          game_id?: string | null
+          id?: string
+          opponent_id?: string | null
+          opponent_score?: number | null
+          status?: string
+          winner_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_battles_game_id_fkey"
             columns: ["game_id"]
             isOneToOne: false
             referencedRelation: "games"
