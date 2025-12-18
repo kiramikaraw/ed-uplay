@@ -10,9 +10,14 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
+import { BulkImportQuestions } from '@/components/BulkImportQuestions';
+import { BulkCreateClasses } from '@/components/BulkCreateClasses';
+import { BulkAssignGames } from '@/components/BulkAssignGames';
+import { BulkExportData } from '@/components/BulkExportData';
 import { 
   Users, Plus, BookOpen, TrendingUp, LogOut, 
-  Copy, UserPlus, BarChart3, FileText, Settings
+  Copy, UserPlus, BarChart3, FileText, Settings,
+  Upload, FolderPlus, Gamepad2, Download
 } from 'lucide-react';
 
 interface ClassData {
@@ -48,6 +53,12 @@ export default function TeacherDashboard() {
   const [newClassName, setNewClassName] = useState('');
   const [newClassDesc, setNewClassDesc] = useState('');
   const [newClassLevel, setNewClassLevel] = useState<string>('');
+
+  // Bulk operation dialogs
+  const [showBulkImport, setShowBulkImport] = useState(false);
+  const [showBulkClasses, setShowBulkClasses] = useState(false);
+  const [showBulkAssign, setShowBulkAssign] = useState(false);
+  const [showBulkExport, setShowBulkExport] = useState(false);
 
   useEffect(() => {
     if (!authLoading && (!user || role !== 'teacher')) {
@@ -258,6 +269,29 @@ export default function TeacherDashboard() {
             message="Selamat datang di Dashboard Guru! Pantau progress siswa dan kelola kelas Anda."
             mood="happy"
           />
+        </div>
+
+        {/* Bulk Operations Bar */}
+        <div className="game-card mb-8">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="text-sm font-semibold text-muted-foreground">Bulk Operations:</span>
+            <GameButton variant="secondary" size="sm" onClick={() => setShowBulkImport(true)}>
+              <Upload className="w-4 h-4" />
+              Import Soal
+            </GameButton>
+            <GameButton variant="secondary" size="sm" onClick={() => setShowBulkClasses(true)}>
+              <FolderPlus className="w-4 h-4" />
+              Buat Kelas
+            </GameButton>
+            <GameButton variant="secondary" size="sm" onClick={() => setShowBulkAssign(true)}>
+              <Gamepad2 className="w-4 h-4" />
+              Assign Games
+            </GameButton>
+            <GameButton variant="secondary" size="sm" onClick={() => setShowBulkExport(true)}>
+              <Download className="w-4 h-4" />
+              Export Data
+            </GameButton>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-4 gap-8">
@@ -471,6 +505,16 @@ export default function TeacherDashboard() {
           </div>
         </div>
       </main>
+
+      {/* Bulk Operation Dialogs */}
+      <BulkImportQuestions open={showBulkImport} onOpenChange={setShowBulkImport} />
+      <BulkCreateClasses 
+        open={showBulkClasses} 
+        onOpenChange={setShowBulkClasses} 
+        onClassesCreated={fetchClasses} 
+      />
+      <BulkAssignGames open={showBulkAssign} onOpenChange={setShowBulkAssign} />
+      <BulkExportData open={showBulkExport} onOpenChange={setShowBulkExport} />
     </div>
   );
 }
