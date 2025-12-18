@@ -11,6 +11,9 @@ import {
   Trophy, Star, BookOpen, Target, LogOut, Settings, 
   Brain, Flame, Clock, TrendingUp, Users, FileText 
 } from 'lucide-react';
+import { JoinClass } from '@/components/JoinClass';
+import { ClassLeaderboard } from '@/components/ClassLeaderboard';
+import { AssignmentNotifications } from '@/components/AssignmentNotifications';
 
 interface ProfileData {
   full_name: string;
@@ -154,6 +157,7 @@ export default function Dashboard() {
             </span>
           </Link>
           <nav className="flex items-center gap-4">
+            <JoinClass onClassJoined={fetchDashboardData} />
             <Link to="/subjects">
               <GameButton variant="ghost" size="sm">
                 <BookOpen className="w-4 h-4" />
@@ -317,7 +321,13 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Leaderboard */}
+            {/* Assignment Notifications */}
+            <AssignmentNotifications />
+
+            {/* Class Leaderboard */}
+            <ClassLeaderboard />
+
+            {/* Global Leaderboard */}
             <Leaderboard entries={leaderboardData} />
           </div>
         </div>
