@@ -14,6 +14,8 @@ import {
 import { JoinClass } from '@/components/JoinClass';
 import { ClassLeaderboard } from '@/components/ClassLeaderboard';
 import { AssignmentNotifications } from '@/components/AssignmentNotifications';
+import { AchievementSystem } from '@/components/AchievementSystem';
+import { DiscussionForum } from '@/components/DiscussionForum';
 
 interface ProfileData {
   full_name: string;
@@ -256,22 +258,11 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Badges */}
-            <div className="game-card">
-              <h2 className="font-bold text-xl mb-4">Badge Collection 🏆</h2>
-              {badges.length > 0 ? (
-                <BadgeGrid 
-                  badges={badges.map(b => ({
-                    ...b,
-                    earned: earnedBadges.includes(b.id),
-                  }))}
-                />
-              ) : (
-                <p className="text-muted-foreground text-center py-8">
-                  Belum ada badge yang tersedia
-                </p>
-              )}
-            </div>
+            {/* Achievements */}
+            <AchievementSystem />
+
+            {/* Discussion Forum */}
+            <DiscussionForum />
 
             {/* Progress by Subject - Placeholder */}
             <div className="game-card">

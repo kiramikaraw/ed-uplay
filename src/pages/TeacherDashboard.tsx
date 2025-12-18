@@ -14,10 +14,11 @@ import { BulkImportQuestions } from '@/components/BulkImportQuestions';
 import { BulkCreateClasses } from '@/components/BulkCreateClasses';
 import { BulkAssignGames } from '@/components/BulkAssignGames';
 import { BulkExportData } from '@/components/BulkExportData';
+import { StudentProgressReport } from '@/components/StudentProgressReport';
 import { 
   Users, Plus, BookOpen, TrendingUp, LogOut, 
   Copy, UserPlus, BarChart3, FileText, Settings,
-  Upload, FolderPlus, Gamepad2, Download
+  Upload, FolderPlus, Gamepad2, Download, Eye
 } from 'lucide-react';
 
 interface ClassData {
@@ -59,6 +60,9 @@ export default function TeacherDashboard() {
   const [showBulkClasses, setShowBulkClasses] = useState(false);
   const [showBulkAssign, setShowBulkAssign] = useState(false);
   const [showBulkExport, setShowBulkExport] = useState(false);
+  
+  // Student progress report
+  const [selectedStudent, setSelectedStudent] = useState<{ id: string; name: string } | null>(null);
 
   useEffect(() => {
     if (!authLoading && (!user || role !== 'teacher')) {
@@ -457,11 +461,12 @@ export default function TeacherDashboard() {
                             <th className="text-center py-3 px-4">Total Skor</th>
                             <th className="text-center py-3 px-4">Rata-rata</th>
                             <th className="text-center py-3 px-4">Progress</th>
+                            <th className="text-center py-3 px-4">Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
                           {studentProgress.map(student => (
-                            <tr key={student.student_id} className="border-b border-border/50">
+                            <tr key={student.student_id} className="border-b border-border/50 hover:bg-muted/50">
                               <td className="py-3 px-4">
                                 <div className="flex items-center gap-3">
                                   <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm">
@@ -480,6 +485,19 @@ export default function TeacherDashboard() {
                                   showLabel={false}
                                   size="sm"
                                 />
+                              </td>
+                              <td className="text-center py-3 px-4">
+                                <GameButton
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => setSelectedStudent({ 
+                                    id: student.student_id, 
+                                    name: student.student_name 
+                                  })}
+                                >
+                                  <Eye className="w-4 h-4" />
+                                  Detail
+                                </GameButton>
                               </td>
                             </tr>
                           ))}
@@ -515,6 +533,17 @@ export default function TeacherDashboard() {
       />
       <BulkAssignGames open={showBulkAssign} onOpenChange={setShowBulkAssign} />
       <BulkExportData open={showBulkExport} onOpenChange={setShowBulkExport} />
+      
+      {/* Student Progress Report Dialog */}
+      {selectedStudent && selectedClass && (
+        <StudentProgressReport
+          open={!!selectedStudent}
+          onOpenChange={(open) => !open && setSelectedStudent(null)}
+          studentId={selectedStudent.id}
+          studentName={selectedStudent.name}
+          classId={selectedClass.id}
+        />
+      )}
     </div>
   );
 }
