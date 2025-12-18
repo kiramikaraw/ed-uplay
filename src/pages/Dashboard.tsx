@@ -18,6 +18,10 @@ import { AchievementSystem } from '@/components/AchievementSystem';
 import { DiscussionForum } from '@/components/DiscussionForum';
 import { DailyChallenge } from '@/components/DailyChallenge';
 import { StudyGroups } from '@/components/StudyGroups';
+import { AITutor } from '@/components/AITutor';
+import { LearningStreak } from '@/components/LearningStreak';
+import { FocusTimer } from '@/components/FocusTimer';
+import { QuizBattle } from '@/components/QuizBattle';
 
 interface ProfileData {
   full_name: string;
@@ -264,6 +268,12 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* Quiz Battle */}
+            <QuizBattle />
+
+            {/* Focus Timer */}
+            <FocusTimer />
+
             {/* Achievements */}
             <AchievementSystem />
 
@@ -318,6 +328,9 @@ export default function Dashboard() {
               </div>
             </div>
 
+            {/* Learning Streak */}
+            <LearningStreak />
+
             {/* Daily Challenge */}
             <DailyChallenge />
 
@@ -334,6 +347,12 @@ export default function Dashboard() {
             <Leaderboard entries={leaderboardData} />
           </div>
         </div>
+
+        {/* AI Tutor Floating Button */}
+        <AITutor 
+          subject={undefined} 
+          educationLevel={profile?.education_level || undefined} 
+        />
       </main>
     </div>
   );
