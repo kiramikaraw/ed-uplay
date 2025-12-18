@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { GameButton } from '@/components/ui/game-button';
 import { Mascot, MascotMessage } from '@/components/Mascot';
 import { ProgressBar } from '@/components/ProgressBar';
-import { Badge, BadgeGrid } from '@/components/BadgeDisplay';
+import { BadgeGrid } from '@/components/BadgeDisplay';
 import { Leaderboard } from '@/components/Leaderboard';
-import { 
+import {
   Trophy, Star, BookOpen, Target, LogOut, Settings, 
   Brain, Flame, Clock, TrendingUp, Users, FileText 
 } from 'lucide-react';
@@ -42,7 +42,11 @@ export default function Dashboard() {
     if (!authLoading && !user) {
       navigate('/auth?mode=login');
     }
-  }, [user, authLoading, navigate]);
+    // Redirect teachers to teacher dashboard
+    if (!authLoading && user && role === 'teacher') {
+      navigate('/teacher');
+    }
+  }, [user, role, authLoading, navigate]);
 
   useEffect(() => {
     if (user) {
