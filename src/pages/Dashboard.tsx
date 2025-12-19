@@ -39,6 +39,8 @@ import StudentAnalyticsReport from '@/components/StudentAnalyticsReport';
 import StudyCalendar from '@/components/StudyCalendar';
 import OnboardingTutorial from '@/components/OnboardingTutorial';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { CertificateGenerator } from '@/components/CertificateGenerator';
+import { ParentalControls } from '@/components/ParentalControls';
 
 interface ProfileData {
   full_name: string;
@@ -331,6 +333,7 @@ export default function Dashboard() {
                 <QuizBattle />
                 <RealtimeQuizBattle />
                 <RewardShop />
+                <CertificateGenerator />
                 <FlashcardSystem />
                 <MiniGames />
               </div>
