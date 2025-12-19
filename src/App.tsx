@@ -14,6 +14,7 @@ import ParentDashboard from "./pages/ParentDashboard";
 import Subjects from "./pages/Subjects";
 import SubjectDetail from "./pages/SubjectDetail";
 import ProfileSettings from "./pages/ProfileSettings";
+import LogoPage from "./pages/LogoPage";
 import QuizGame from "./pages/games/QuizGame";
 import MemoryGame from "./pages/games/MemoryGame";
 import DragDropGame from "./pages/games/DragDropGame";
@@ -40,6 +41,7 @@ const App = () => (
               <Route path="/subjects" element={<Subjects />} />
               <Route path="/subjects/:subjectId" element={<SubjectDetail />} />
               <Route path="/settings" element={<ProfileSettings />} />
+              <Route path="/logo" element={<LogoPage />} />
               <Route path="/play/quiz/:topicId" element={<QuizGame />} />
               <Route path="/play/quiz/:topicId/:gameId" element={<QuizGame />} />
               <Route path="/play/memory/:topicId" element={<MemoryGame />} />
