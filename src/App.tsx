@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
@@ -11,6 +12,7 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import Subjects from "./pages/Subjects";
 import SubjectDetail from "./pages/SubjectDetail";
+import ProfileSettings from "./pages/ProfileSettings";
 import QuizGame from "./pages/games/QuizGame";
 import MemoryGame from "./pages/games/MemoryGame";
 import DragDropGame from "./pages/games/DragDropGame";
@@ -22,28 +24,30 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/teacher" element={<TeacherDashboard />} />
-            <Route path="/parent" element={<ParentDashboard />} />
-            <Route path="/subjects" element={<Subjects />} />
-            <Route path="/subjects/:subjectId" element={<SubjectDetail />} />
-            <Route path="/play/quiz/:topicId" element={<QuizGame />} />
-            <Route path="/play/quiz/:topicId/:gameId" element={<QuizGame />} />
-            <Route path="/play/memory/:topicId" element={<MemoryGame />} />
-            <Route path="/play/drag_drop/:topicId" element={<DragDropGame />} />
-            <Route path="/play/puzzle/:topicId" element={<PuzzleGame />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <LanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/teacher" element={<TeacherDashboard />} />
+              <Route path="/parent" element={<ParentDashboard />} />
+              <Route path="/subjects" element={<Subjects />} />
+              <Route path="/subjects/:subjectId" element={<SubjectDetail />} />
+              <Route path="/settings" element={<ProfileSettings />} />
+              <Route path="/play/quiz/:topicId" element={<QuizGame />} />
+              <Route path="/play/quiz/:topicId/:gameId" element={<QuizGame />} />
+              <Route path="/play/memory/:topicId" element={<MemoryGame />} />
+              <Route path="/play/drag_drop/:topicId" element={<DragDropGame />} />
+              <Route path="/play/puzzle/:topicId" element={<PuzzleGame />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </LanguageProvider>
     </AuthProvider>
   </QueryClientProvider>
 );

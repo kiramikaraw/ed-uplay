@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { GameButton } from '@/components/ui/game-button';
 import { Mascot, MascotMessage } from '@/components/Mascot';
 import { ProgressBar } from '@/components/ProgressBar';
 import { BadgeGrid } from '@/components/BadgeDisplay';
-import { Leaderboard } from '@/components/Leaderboard';
 import {
   Trophy, Star, BookOpen, Target, LogOut, Settings, 
   Brain, Flame, Clock, TrendingUp, Users, FileText 
@@ -33,6 +32,11 @@ import { LevelProgression } from '@/components/LevelProgression';
 import { FlashcardSystem } from '@/components/FlashcardSystem';
 import { MiniGames } from '@/components/MiniGames';
 import { DailyQuests } from '@/components/DailyQuests';
+import NotificationCenter from '@/components/NotificationCenter';
+import SearchFilter from '@/components/SearchFilter';
+import ContentBookmarks from '@/components/ContentBookmarks';
+import StudentAnalyticsReport from '@/components/StudentAnalyticsReport';
+import StudyCalendar from '@/components/StudyCalendar';
 
 interface ProfileData {
   full_name: string;
@@ -180,12 +184,19 @@ export default function Dashboard() {
             </span>
           </Link>
           <nav className="flex items-center gap-4">
+            <SearchFilter />
+            <NotificationCenter />
             <ThemeToggle />
             <JoinClass onClassJoined={fetchDashboardData} />
             <Link to="/subjects">
               <GameButton variant="ghost" size="sm">
                 <BookOpen className="w-4 h-4" />
                 Mata Pelajaran
+              </GameButton>
+            </Link>
+            <Link to="/settings">
+              <GameButton variant="ghost" size="sm">
+                <Settings className="w-4 h-4" />
               </GameButton>
             </Link>
             <GameButton variant="ghost" size="sm" onClick={handleSignOut}>
@@ -373,6 +384,15 @@ export default function Dashboard() {
 
             {/* Voice Notes */}
             <VoiceNotes />
+
+            {/* Bookmarks */}
+            <ContentBookmarks />
+
+            {/* Study Calendar */}
+            <StudyCalendar />
+
+            {/* Student Analytics */}
+            <StudentAnalyticsReport />
 
             {/* Class Leaderboard */}
             <ClassLeaderboard />
