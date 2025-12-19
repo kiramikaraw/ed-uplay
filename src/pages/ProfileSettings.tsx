@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { User, Camera, Lock, Bell, Globe, Palette, ArrowLeft, Save } from 'lucide-react';
+import { User, Lock, Bell, Globe, Palette, ArrowLeft, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,12 +9,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ThemeToggle } from '@/components/ThemeToggle';
+import { AvatarUpload } from '@/components/AvatarUpload';
 
 export default function ProfileSettings() {
   const navigate = useNavigate();
@@ -137,15 +137,15 @@ export default function ProfileSettings() {
               <CardHeader><CardTitle>{t('editProfile')}</CardTitle></CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-center gap-6">
-                  <Avatar className="h-24 w-24">
-                    <AvatarImage src={profile.avatar_url} />
-                    <AvatarFallback className="text-2xl bg-primary text-primary-foreground">
-                      {profile.full_name?.charAt(0) || 'U'}
-                    </AvatarFallback>
-                  </Avatar>
+                  <AvatarUpload
+                    currentUrl={profile.avatar_url}
+                    fallback={profile.full_name?.charAt(0) || 'U'}
+                    onUploadComplete={(url) => setProfile({ ...profile, avatar_url: url })}
+                  />
                   <div>
                     <h3 className="font-semibold">{profile.full_name || 'User'}</h3>
                     <p className="text-sm text-muted-foreground">{user?.email}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Klik ikon kamera untuk ganti foto</p>
                   </div>
                 </div>
 
