@@ -86,6 +86,45 @@ export type Database = {
         }
         Relationships: []
       }
+      bookmarks: {
+        Row: {
+          created_at: string
+          game_id: string | null
+          id: string
+          topic_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          game_id?: string | null
+          id?: string
+          topic_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          game_id?: string | null
+          id?: string
+          topic_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookmarks_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookmarks_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       class_members: {
         Row: {
           class_id: string
@@ -427,6 +466,39 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          action_url: string | null
+          created_at: string
+          id: string
+          is_read: boolean
+          message: string
+          title: string
+          type: string
+          user_id: string
+        }
+        Insert: {
+          action_url?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message: string
+          title: string
+          type?: string
+          user_id: string
+        }
+        Update: {
+          action_url?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          title?: string
+          type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       parent_children: {
         Row: {
           child_id: string
@@ -646,6 +718,66 @@ export type Database = {
           },
         ]
       }
+      study_schedule: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_minutes: number | null
+          game_id: string | null
+          id: string
+          is_completed: boolean
+          reminder_sent: boolean
+          scheduled_date: string
+          scheduled_time: string | null
+          title: string
+          topic_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          game_id?: string | null
+          id?: string
+          is_completed?: boolean
+          reminder_sent?: boolean
+          scheduled_date: string
+          scheduled_time?: string | null
+          title: string
+          topic_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_minutes?: number | null
+          game_id?: string | null
+          id?: string
+          is_completed?: boolean
+          reminder_sent?: boolean
+          scheduled_date?: string
+          scheduled_time?: string | null
+          title?: string
+          topic_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "study_schedule_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "study_schedule_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subjects: {
         Row: {
           color: string | null
@@ -736,6 +868,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_preferences: {
+        Row: {
+          created_at: string
+          id: string
+          language: string
+          notification_email: boolean
+          notification_push: boolean
+          onboarding_completed: boolean
+          theme: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          language?: string
+          notification_email?: boolean
+          notification_push?: boolean
+          onboarding_completed?: boolean
+          theme?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          language?: string
+          notification_email?: boolean
+          notification_push?: boolean
+          onboarding_completed?: boolean
+          theme?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_progress: {
         Row: {

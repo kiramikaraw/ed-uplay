@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, forwardRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Sparkles } from 'lucide-react';
 
@@ -10,36 +10,41 @@ interface MascotProps {
   animate?: boolean;
 }
 
-export function Mascot({ size = 'md', mood = 'happy', className, animate = true }: MascotProps) {
-  const sizeClasses = {
-    sm: 'w-16 h-16 text-3xl',
-    md: 'w-24 h-24 text-5xl',
-    lg: 'w-32 h-32 text-6xl',
-    xl: 'w-48 h-48 text-8xl',
-  };
+export const Mascot = forwardRef<HTMLDivElement, MascotProps>(
+  ({ size = 'md', mood = 'happy', className, animate = true }, ref) => {
+    const sizeClasses = {
+      sm: 'w-16 h-16 text-3xl',
+      md: 'w-24 h-24 text-5xl',
+      lg: 'w-32 h-32 text-6xl',
+      xl: 'w-48 h-48 text-8xl',
+    };
 
-  const moodEmojis = {
-    happy: '🦊',
-    excited: '🎉',
-    thinking: '🤔',
-    celebrating: '🏆',
-  };
+    const moodEmojis = {
+      happy: '🦊',
+      excited: '🎉',
+      thinking: '🤔',
+      celebrating: '🏆',
+    };
 
-  return (
-    <div 
-      className={cn(
-        'flex items-center justify-center rounded-full bg-gradient-to-br from-accent to-orange',
-        sizeClasses[size],
-        animate && 'float-animation',
-        className
-      )}
-    >
-      <span className={cn(animate && mood === 'celebrating' && 'mascot-wave')}>
-        {moodEmojis[mood]}
-      </span>
-    </div>
-  );
-}
+    return (
+      <div 
+        ref={ref}
+        className={cn(
+          'flex items-center justify-center rounded-full bg-gradient-to-br from-accent to-orange',
+          sizeClasses[size],
+          animate && 'float-animation',
+          className
+        )}
+      >
+        <span className={cn(animate && mood === 'celebrating' && 'mascot-wave')}>
+          {moodEmojis[mood]}
+        </span>
+      </div>
+    );
+  }
+);
+
+Mascot.displayName = 'Mascot';
 
 interface MascotMessageProps {
   message: string;
