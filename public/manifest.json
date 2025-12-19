@@ -1,0 +1,19 @@
+{
+  "name": "EduPlay - Belajar Sambil Bermain",
+  "short_name": "EduPlay",
+  "description": "Platform belajar interaktif dengan game edukatif untuk siswa Indonesia",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0A0A0F",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["education", "games"],
+  "lang": "id"
+}
