@@ -29,6 +29,9 @@ import { VoiceNotes } from '@/components/VoiceNotes';
 import { WeeklyProgressChart } from '@/components/WeeklyProgressChart';
 import { RewardShop } from '@/components/RewardShop';
 import { RealtimeQuizBattle } from '@/components/RealtimeQuizBattle';
+import { LevelProgression } from '@/components/LevelProgression';
+import { FlashcardSystem } from '@/components/FlashcardSystem';
+import { MiniGames } from '@/components/MiniGames';
 
 interface ProfileData {
   full_name: string;
@@ -277,12 +280,15 @@ export default function Dashboard() {
             </div>
 
             {/* Battle Options */}
+            {/* Mode Battle & Tools */}
             <div className="game-card">
-              <h2 className="font-bold text-xl mb-4">Mode Battle ⚔️</h2>
+              <h2 className="font-bold text-xl mb-4">Mode Battle & Tools ⚔️</h2>
               <div className="flex flex-wrap gap-3">
                 <QuizBattle />
                 <RealtimeQuizBattle />
                 <RewardShop />
+                <FlashcardSystem />
+                <MiniGames />
               </div>
             </div>
 
@@ -345,6 +351,9 @@ export default function Dashboard() {
                 </p>
               </div>
             </div>
+
+            {/* Level Progression */}
+            <LevelProgression />
 
             {/* Learning Streak */}
             <LearningStreak />
