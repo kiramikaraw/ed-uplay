@@ -16,6 +16,7 @@ import { BulkAssignGames } from '@/components/BulkAssignGames';
 import { BulkExportData } from '@/components/BulkExportData';
 import { StudentProgressReport } from '@/components/StudentProgressReport';
 import { ClassroomLiveView } from '@/components/ClassroomLiveView';
+import { QuizBuilder } from '@/components/QuizBuilder';
 import { 
   Users, Plus, BookOpen, TrendingUp, LogOut, 
   Copy, UserPlus, BarChart3, FileText, Settings,
@@ -280,6 +281,7 @@ export default function TeacherDashboard() {
         <div className="game-card mb-8">
           <div className="flex flex-wrap items-center gap-3">
             <span className="text-sm font-semibold text-muted-foreground">Bulk Operations:</span>
+            <QuizBuilder />
             <GameButton variant="secondary" size="sm" onClick={() => setShowBulkImport(true)}>
               <Upload className="w-4 h-4" />
               Import Soal

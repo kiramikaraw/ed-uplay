@@ -520,6 +520,48 @@ export type Database = {
         }
         Relationships: []
       }
+      parental_controls: {
+        Row: {
+          allowed_end_time: string | null
+          allowed_start_time: string | null
+          blocked_game_types: string[] | null
+          child_id: string
+          content_filter_level: string | null
+          created_at: string
+          daily_time_limit_minutes: number | null
+          id: string
+          notifications_enabled: boolean | null
+          parent_id: string
+          updated_at: string
+        }
+        Insert: {
+          allowed_end_time?: string | null
+          allowed_start_time?: string | null
+          blocked_game_types?: string[] | null
+          child_id: string
+          content_filter_level?: string | null
+          created_at?: string
+          daily_time_limit_minutes?: number | null
+          id?: string
+          notifications_enabled?: boolean | null
+          parent_id: string
+          updated_at?: string
+        }
+        Update: {
+          allowed_end_time?: string | null
+          allowed_start_time?: string | null
+          blocked_game_types?: string[] | null
+          child_id?: string
+          content_filter_level?: string | null
+          created_at?: string
+          daily_time_limit_minutes?: number | null
+          id?: string
+          notifications_enabled?: boolean | null
+          parent_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -868,6 +910,57 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      user_coins: {
+        Row: {
+          balance: number
+          created_at: string
+          id: string
+          total_earned: number
+          total_spent: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          balance?: number
+          created_at?: string
+          id?: string
+          total_earned?: number
+          total_spent?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          balance?: number
+          created_at?: string
+          id?: string
+          total_earned?: number
+          total_spent?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_owned_items: {
+        Row: {
+          id: string
+          item_id: string
+          purchased_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          item_id: string
+          purchased_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          item_id?: string
+          purchased_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_preferences: {
         Row: {
