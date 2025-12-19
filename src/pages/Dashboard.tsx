@@ -22,6 +22,8 @@ import { AITutor } from '@/components/AITutor';
 import { LearningStreak } from '@/components/LearningStreak';
 import { FocusTimer } from '@/components/FocusTimer';
 import { QuizBattle } from '@/components/QuizBattle';
+import { GlobalLeaderboard } from '@/components/GlobalLeaderboard';
+import { BattleNotifications } from '@/components/BattleNotifications';
 
 interface ProfileData {
   full_name: string;
@@ -343,10 +345,13 @@ export default function Dashboard() {
             {/* Class Leaderboard */}
             <ClassLeaderboard />
 
-            {/* Global Leaderboard */}
-            <Leaderboard entries={leaderboardData} />
+            {/* Global Leaderboard with Rewards */}
+            <GlobalLeaderboard />
           </div>
         </div>
+
+        {/* Battle Notifications (Background) */}
+        <BattleNotifications />
 
         {/* AI Tutor Floating Button */}
         <AITutor 
