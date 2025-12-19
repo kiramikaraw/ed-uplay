@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
 import { GameButton } from '@/components/ui/game-button';
 import { Mascot } from '@/components/Mascot';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { GraduationCap, Users, Mail, Lock, User, ArrowLeft, Heart } from 'lucide-react';
+import { GraduationCap, Users, Mail, Lock, User, ArrowLeft, Heart, CheckCircle } from 'lucide-react';
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -29,9 +30,10 @@ export default function Auth() {
   const { user, signIn, signUp } = useAuth();
   const { toast } = useToast();
 
-  const [mode, setMode] = useState<'login' | 'signup'>(
-    (searchParams.get('mode') as 'login' | 'signup') || 'login'
+  const [mode, setMode] = useState<'login' | 'signup' | 'forgot'>(
+    (searchParams.get('mode') as 'login' | 'signup' | 'forgot') || 'login'
   );
+  const [forgotEmailSent, setForgotEmailSent] = useState(false);
   const [role, setRole] = useState<'student' | 'teacher' | 'parent'>(
     (searchParams.get('role') as 'student' | 'teacher' | 'parent') || 'student'
   );
@@ -51,11 +53,36 @@ export default function Auth() {
   }, [user, navigate]);
 
   useEffect(() => {
-    const modeParam = searchParams.get('mode') as 'login' | 'signup';
+    const modeParam = searchParams.get('mode') as 'login' | 'signup' | 'forgot';
     const roleParam = searchParams.get('role') as 'student' | 'teacher' | 'parent';
     if (modeParam) setMode(modeParam);
     if (roleParam) setRole(roleParam);
   }, [searchParams]);
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      setErrors({ email: 'Masukkan email' });
+      return;
+    }
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    setLoading(false);
+    if (error) {
+      toast({
+        title: 'Gagal mengirim email',
+        description: error.message,
+        variant: 'destructive',
+      });
+    } else {
+      setForgotEmailSent(true);
+      toast({
+        title: 'Email terkirim!',
+        description: 'Cek inbox email Anda untuk link reset password',
+      });
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -179,13 +206,23 @@ export default function Auth() {
           </div>
 
           <h1 className="text-2xl font-bold mb-2">
-            {mode === 'login' ? 'Selamat Datang Kembali!' : 'Buat Akun Baru'}
+            {mode === 'login' ? 'Selamat Datang Kembali!' : mode === 'forgot' ? 'Lupa Password?' : 'Buat Akun Baru'}
           </h1>
           <p className="text-muted-foreground mb-8">
             {mode === 'login' 
               ? 'Masuk untuk melanjutkan belajar' 
-              : 'Daftar gratis dan mulai belajar'}
+              : mode === 'forgot'
+                ? 'Masukkan email untuk reset password'
+                : 'Daftar gratis dan mulai belajar'}
           </p>
+
+          {mode === 'forgot' && forgotEmailSent && (
+            <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-center">
+              <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
+              <p className="font-semibold text-green-500">Email terkirim!</p>
+              <p className="text-sm text-muted-foreground">Cek inbox email Anda</p>
+            </div>
+          )}
 
           {mode === 'signup' && (
             <div className="flex gap-2 mb-6">
@@ -228,84 +265,125 @@ export default function Auth() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {mode === 'signup' && (
+          {mode === 'forgot' ? (
+            <div className="space-y-4">
               <div>
-                <Label htmlFor="fullName">Nama Lengkap</Label>
+                <Label htmlFor="email">Email</Label>
                 <div className="relative mt-1">
-                  <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                   <Input
-                    id="fullName"
-                    type="text"
-                    placeholder="Masukkan nama lengkap"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
+                    id="email"
+                    type="email"
+                    placeholder="nama@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 h-12 rounded-xl"
                   />
                 </div>
-                {errors.fullName && <p className="text-sm text-destructive mt-1">{errors.fullName}</p>}
+                {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
               </div>
-            )}
 
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <div className="relative mt-1">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="nama@email.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10 h-12 rounded-xl"
-                />
-              </div>
-              {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
+              <GameButton
+                type="button"
+                variant="primary"
+                size="lg"
+                className="w-full mt-6"
+                disabled={loading || forgotEmailSent}
+                onClick={handleForgotPassword}
+              >
+                {loading ? 'Loading...' : forgotEmailSent ? 'Email Terkirim' : 'Kirim Link Reset'}
+              </GameButton>
             </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {mode === 'signup' && (
+                <div>
+                  <Label htmlFor="fullName">Nama Lengkap</Label>
+                  <div className="relative mt-1">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                    <Input
+                      id="fullName"
+                      type="text"
+                      placeholder="Masukkan nama lengkap"
+                      value={fullName}
+                      onChange={(e) => setFullName(e.target.value)}
+                      className="pl-10 h-12 rounded-xl"
+                    />
+                  </div>
+                  {errors.fullName && <p className="text-sm text-destructive mt-1">{errors.fullName}</p>}
+                </div>
+              )}
 
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <div className="relative mt-1">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="Minimal 6 karakter"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="pl-10 h-12 rounded-xl"
-                />
-              </div>
-              {errors.password && <p className="text-sm text-destructive mt-1">{errors.password}</p>}
-            </div>
-
-            {mode === 'signup' && role === 'student' && (
               <div>
-                <Label htmlFor="educationLevel">Jenjang Pendidikan</Label>
-                <Select value={educationLevel} onValueChange={setEducationLevel}>
-                  <SelectTrigger className="mt-1 h-12 rounded-xl">
-                    <SelectValue placeholder="Pilih jenjang" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="sd">SD (Sekolah Dasar)</SelectItem>
-                    <SelectItem value="smp">SMP (Sekolah Menengah Pertama)</SelectItem>
-                    <SelectItem value="sma">SMA (Sekolah Menengah Atas)</SelectItem>
-                  </SelectContent>
-                </Select>
-                {errors.educationLevel && <p className="text-sm text-destructive mt-1">{errors.educationLevel}</p>}
+                <Label htmlFor="email">Email</Label>
+                <div className="relative mt-1">
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="nama@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 h-12 rounded-xl"
+                  />
+                </div>
+                {errors.email && <p className="text-sm text-destructive mt-1">{errors.email}</p>}
               </div>
-            )}
 
-            <GameButton
-              type="submit"
-              variant={role === 'teacher' ? 'secondary' : 'primary'}
-              size="lg"
-              className="w-full mt-6"
-              disabled={loading}
+              <div>
+                <Label htmlFor="password">Password</Label>
+                <div className="relative mt-1">
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Minimal 6 karakter"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 h-12 rounded-xl"
+                  />
+                </div>
+                {errors.password && <p className="text-sm text-destructive mt-1">{errors.password}</p>}
+              </div>
+
+              {mode === 'signup' && role === 'student' && (
+                <div>
+                  <Label htmlFor="educationLevel">Jenjang Pendidikan</Label>
+                  <Select value={educationLevel} onValueChange={setEducationLevel}>
+                    <SelectTrigger className="mt-1 h-12 rounded-xl">
+                      <SelectValue placeholder="Pilih jenjang" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="sd">SD (Sekolah Dasar)</SelectItem>
+                      <SelectItem value="smp">SMP (Sekolah Menengah Pertama)</SelectItem>
+                      <SelectItem value="sma">SMA (Sekolah Menengah Atas)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  {errors.educationLevel && <p className="text-sm text-destructive mt-1">{errors.educationLevel}</p>}
+                </div>
+              )}
+
+              <GameButton
+                type="submit"
+                variant={role === 'teacher' ? 'secondary' : 'primary'}
+                size="lg"
+                className="w-full mt-6"
+                disabled={loading}
+              >
+                {loading ? 'Loading...' : mode === 'login' ? 'Masuk' : 'Daftar Sekarang'}
+              </GameButton>
+            </form>
+          )}
+
+          {mode === 'login' && (
+            <button
+              type="button"
+              onClick={() => setMode('forgot')}
+              className="block w-full text-center text-sm text-muted-foreground hover:text-primary mt-4"
             >
-              {loading ? 'Loading...' : mode === 'login' ? 'Masuk' : 'Daftar Sekarang'}
-            </GameButton>
-          </form>
+              Lupa password?
+            </button>
+          )}
 
           <p className="text-center text-muted-foreground mt-6">
             {mode === 'login' ? (
@@ -316,6 +394,16 @@ export default function Auth() {
                   className="text-primary font-semibold hover:underline"
                 >
                   Daftar Gratis
+                </button>
+              </>
+            ) : mode === 'forgot' ? (
+              <>
+                Ingat password?{' '}
+                <button
+                  onClick={() => setMode('login')}
+                  className="text-primary font-semibold hover:underline"
+                >
+                  Masuk
                 </button>
               </>
             ) : (

@@ -37,6 +37,8 @@ import SearchFilter from '@/components/SearchFilter';
 import ContentBookmarks from '@/components/ContentBookmarks';
 import StudentAnalyticsReport from '@/components/StudentAnalyticsReport';
 import StudyCalendar from '@/components/StudyCalendar';
+import OnboardingTutorial from '@/components/OnboardingTutorial';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface ProfileData {
   full_name: string;
@@ -63,6 +65,7 @@ export default function Dashboard() {
     streak: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -81,8 +84,32 @@ export default function Dashboard() {
   useEffect(() => {
     if (user) {
       fetchDashboardData();
+      checkOnboardingStatus();
     }
   }, [user]);
+
+  const checkOnboardingStatus = async () => {
+    if (!user) return;
+    const { data } = await supabase
+      .from('user_preferences')
+      .select('onboarding_completed')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    
+    // Show onboarding if no preferences or not completed
+    if (!data || !data.onboarding_completed) {
+      setShowOnboarding(true);
+    }
+  };
+
+  const handleOnboardingComplete = async () => {
+    if (!user) return;
+    await supabase.from('user_preferences').upsert({
+      user_id: user.id,
+      onboarding_completed: true,
+    }, { onConflict: 'user_id' });
+    setShowOnboarding(false);
+  };
 
   const fetchDashboardData = async () => {
     if (!user) return;
@@ -174,6 +201,11 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Onboarding Tutorial */}
+      {showOnboarding && (
+        <OnboardingTutorial onComplete={handleOnboardingComplete} />
+      )}
+
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -349,9 +381,12 @@ export default function Dashboard() {
           <div className="space-y-8">
             {/* Profile Card */}
             <div className="game-card text-center">
-              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-4xl mb-4">
-                {profile?.full_name?.charAt(0).toUpperCase() || '🦊'}
-              </div>
+              <Avatar className="w-20 h-20 mx-auto mb-4">
+                <AvatarImage src={profile?.avatar_url || ''} />
+                <AvatarFallback className="text-2xl bg-gradient-to-br from-primary to-secondary text-primary-foreground">
+                  {profile?.full_name?.charAt(0).toUpperCase() || '🦊'}
+                </AvatarFallback>
+              </Avatar>
               <h3 className="font-bold text-xl">{profile?.full_name || 'User'}</h3>
               <p className="text-muted-foreground">
                 {role === 'teacher' ? 'Guru' : 'Siswa'} 
