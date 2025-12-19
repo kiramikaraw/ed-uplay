@@ -24,6 +24,8 @@ import { FocusTimer } from '@/components/FocusTimer';
 import { QuizBattle } from '@/components/QuizBattle';
 import { GlobalLeaderboard } from '@/components/GlobalLeaderboard';
 import { BattleNotifications } from '@/components/BattleNotifications';
+import { ThemeToggle } from '@/components/ThemeToggle';
+import { VoiceNotes } from '@/components/VoiceNotes';
 
 interface ProfileData {
   full_name: string;
@@ -171,6 +173,7 @@ export default function Dashboard() {
             </span>
           </Link>
           <nav className="flex items-center gap-4">
+            <ThemeToggle />
             <JoinClass onClassJoined={fetchDashboardData} />
             <Link to="/subjects">
               <GameButton variant="ghost" size="sm">
@@ -341,6 +344,9 @@ export default function Dashboard() {
 
             {/* Study Groups */}
             <StudyGroups />
+
+            {/* Voice Notes */}
+            <VoiceNotes />
 
             {/* Class Leaderboard */}
             <ClassLeaderboard />
