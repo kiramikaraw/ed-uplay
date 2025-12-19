@@ -32,6 +32,7 @@ import { RealtimeQuizBattle } from '@/components/RealtimeQuizBattle';
 import { LevelProgression } from '@/components/LevelProgression';
 import { FlashcardSystem } from '@/components/FlashcardSystem';
 import { MiniGames } from '@/components/MiniGames';
+import { DailyQuests } from '@/components/DailyQuests';
 
 interface ProfileData {
   full_name: string;
@@ -360,6 +361,9 @@ export default function Dashboard() {
 
             {/* Daily Challenge */}
             <DailyChallenge />
+
+            {/* Daily Quests */}
+            <DailyQuests />
 
             {/* Assignment Notifications */}
             <AssignmentNotifications />
