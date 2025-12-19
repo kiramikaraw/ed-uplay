@@ -26,6 +26,9 @@ import { GlobalLeaderboard } from '@/components/GlobalLeaderboard';
 import { BattleNotifications } from '@/components/BattleNotifications';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { VoiceNotes } from '@/components/VoiceNotes';
+import { WeeklyProgressChart } from '@/components/WeeklyProgressChart';
+import { RewardShop } from '@/components/RewardShop';
+import { RealtimeQuizBattle } from '@/components/RealtimeQuizBattle';
 
 interface ProfileData {
   full_name: string;
@@ -273,8 +276,18 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Quiz Battle */}
-            <QuizBattle />
+            {/* Battle Options */}
+            <div className="game-card">
+              <h2 className="font-bold text-xl mb-4">Mode Battle ⚔️</h2>
+              <div className="flex flex-wrap gap-3">
+                <QuizBattle />
+                <RealtimeQuizBattle />
+                <RewardShop />
+              </div>
+            </div>
+
+            {/* Weekly Progress */}
+            <WeeklyProgressChart />
 
             {/* Focus Timer */}
             <FocusTimer />
