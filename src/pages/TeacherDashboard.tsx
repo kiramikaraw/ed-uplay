@@ -15,6 +15,7 @@ import { BulkCreateClasses } from '@/components/BulkCreateClasses';
 import { BulkAssignGames } from '@/components/BulkAssignGames';
 import { BulkExportData } from '@/components/BulkExportData';
 import { StudentProgressReport } from '@/components/StudentProgressReport';
+import { ClassroomLiveView } from '@/components/ClassroomLiveView';
 import { 
   Users, Plus, BookOpen, TrendingUp, LogOut, 
   Copy, UserPlus, BarChart3, FileText, Settings,
@@ -506,6 +507,9 @@ export default function TeacherDashboard() {
                     </div>
                   )}
                 </div>
+
+                {/* Classroom Live View */}
+                <ClassroomLiveView />
               </>
             ) : (
               <div className="game-card text-center py-12">
