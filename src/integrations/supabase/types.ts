@@ -86,6 +86,74 @@ export type Database = {
         }
         Relationships: []
       }
+      battle_pass_rewards: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_premium: boolean | null
+          level: number
+          reward_type: string
+          reward_value: Json
+          season_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_premium?: boolean | null
+          level: number
+          reward_type: string
+          reward_value: Json
+          season_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_premium?: boolean | null
+          level?: number
+          reward_type?: string
+          reward_value?: Json
+          season_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "battle_pass_rewards_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "battle_pass_seasons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      battle_pass_seasons: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          ends_at: string
+          id: string
+          is_active: boolean | null
+          name: string
+          starts_at: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          ends_at: string
+          id?: string
+          is_active?: boolean | null
+          name: string
+          starts_at: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          ends_at?: string
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          starts_at?: string
+        }
+        Relationships: []
+      }
       bookmarks: {
         Row: {
           created_at: string
@@ -274,6 +342,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      daily_rewards: {
+        Row: {
+          claimed_at: string | null
+          id: string
+          reward_amount: number
+          reward_date: string
+          reward_type: string
+          streak_day: number | null
+          user_id: string
+        }
+        Insert: {
+          claimed_at?: string | null
+          id?: string
+          reward_amount: number
+          reward_date?: string
+          reward_type: string
+          streak_day?: number | null
+          user_id: string
+        }
+        Update: {
+          claimed_at?: string | null
+          id?: string
+          reward_amount?: number
+          reward_date?: string
+          reward_type?: string
+          streak_day?: number | null
+          user_id?: string
+        }
+        Relationships: []
       }
       discussion_replies: {
         Row: {
@@ -466,6 +564,36 @@ export type Database = {
         }
         Relationships: []
       }
+      lucky_spin_history: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_premium_spin: boolean | null
+          reward_amount: number
+          reward_type: string
+          spin_date: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_premium_spin?: boolean | null
+          reward_amount: number
+          reward_type: string
+          spin_date?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_premium_spin?: boolean | null
+          reward_amount?: number
+          reward_type?: string
+          spin_date?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           action_url: string | null
@@ -559,6 +687,45 @@ export type Database = {
           notifications_enabled?: boolean | null
           parent_id?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      payment_transactions: {
+        Row: {
+          amount: number
+          created_at: string | null
+          currency: string | null
+          id: string
+          metadata: Json | null
+          payment_method: string | null
+          payment_reference: string | null
+          status: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          metadata?: Json | null
+          payment_method?: string | null
+          payment_reference?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          currency?: string | null
+          id?: string
+          metadata?: Json | null
+          payment_method?: string | null
+          payment_reference?: string | null
+          status?: string | null
+          updated_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -689,6 +856,65 @@ export type Database = {
             columns: ["game_id"]
             isOneToOne: false
             referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      referral_codes: {
+        Row: {
+          code: string
+          created_at: string | null
+          id: string
+          total_earnings: number | null
+          user_id: string
+          uses_count: number | null
+        }
+        Insert: {
+          code: string
+          created_at?: string | null
+          id?: string
+          total_earnings?: number | null
+          user_id: string
+          uses_count?: number | null
+        }
+        Update: {
+          code?: string
+          created_at?: string | null
+          id?: string
+          total_earnings?: number | null
+          user_id?: string
+          uses_count?: number | null
+        }
+        Relationships: []
+      }
+      referral_uses: {
+        Row: {
+          code_id: string | null
+          created_at: string | null
+          id: string
+          referred_user_id: string
+          reward_given: boolean | null
+        }
+        Insert: {
+          code_id?: string | null
+          created_at?: string | null
+          id?: string
+          referred_user_id: string
+          reward_given?: boolean | null
+        }
+        Update: {
+          code_id?: string | null
+          created_at?: string | null
+          id?: string
+          referred_user_id?: string
+          reward_given?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referral_uses_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "referral_codes"
             referencedColumns: ["id"]
           },
         ]
@@ -844,6 +1070,39 @@ export type Database = {
         }
         Relationships: []
       }
+      subscription_plans: {
+        Row: {
+          created_at: string | null
+          features: Json
+          id: string
+          is_active: boolean | null
+          name: string
+          price_monthly: number
+          price_yearly: number
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          features?: Json
+          id?: string
+          is_active?: boolean | null
+          name: string
+          price_monthly?: number
+          price_yearly?: number
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          features?: Json
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          price_monthly?: number
+          price_yearly?: number
+          slug?: string
+        }
+        Relationships: []
+      }
       topics: {
         Row: {
           created_at: string | null
@@ -907,6 +1166,50 @@ export type Database = {
             columns: ["badge_id"]
             isOneToOne: false
             referencedRelation: "badges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_battle_pass: {
+        Row: {
+          claimed_rewards: number[] | null
+          created_at: string | null
+          current_level: number | null
+          current_xp: number | null
+          id: string
+          is_premium: boolean | null
+          season_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          claimed_rewards?: number[] | null
+          created_at?: string | null
+          current_level?: number | null
+          current_xp?: number | null
+          id?: string
+          is_premium?: boolean | null
+          season_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          claimed_rewards?: number[] | null
+          created_at?: string | null
+          current_level?: number | null
+          current_xp?: number | null
+          id?: string
+          is_premium?: boolean | null
+          season_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_battle_pass_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "battle_pass_seasons"
             referencedColumns: ["id"]
           },
         ]
@@ -1053,6 +1356,56 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_subscriptions: {
+        Row: {
+          billing_cycle: string
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          payment_method: string | null
+          payment_reference: string | null
+          plan_id: string | null
+          started_at: string | null
+          status: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          billing_cycle?: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          plan_id?: string | null
+          started_at?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          billing_cycle?: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          payment_method?: string | null
+          payment_reference?: string | null
+          plan_id?: string | null
+          started_at?: string | null
+          status?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

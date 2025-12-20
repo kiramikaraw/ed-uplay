@@ -41,6 +41,11 @@ import OnboardingTutorial from '@/components/OnboardingTutorial';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { CertificateGenerator } from '@/components/CertificateGenerator';
 import { ParentalControls } from '@/components/ParentalControls';
+import PricingPlans from '@/components/PricingPlans';
+import BattlePass from '@/components/BattlePass';
+import ReferralProgram from '@/components/ReferralProgram';
+import DailyRewards from '@/components/DailyRewards';
+import LuckySpin from '@/components/LuckySpin';
 
 interface ProfileData {
   full_name: string;
@@ -333,9 +338,21 @@ export default function Dashboard() {
                 <QuizBattle />
                 <RealtimeQuizBattle />
                 <RewardShop />
+                <BattlePass />
                 <CertificateGenerator />
                 <FlashcardSystem />
                 <MiniGames />
+              </div>
+            </div>
+
+            {/* Premium & Rewards */}
+            <div className="game-card">
+              <h2 className="font-bold text-xl mb-4">Premium & Rewards 💎</h2>
+              <div className="flex flex-wrap gap-3">
+                <PricingPlans />
+                <DailyRewards />
+                <LuckySpin />
+                <ReferralProgram />
               </div>
             </div>
 
