@@ -531,6 +531,114 @@ export type Database = {
           },
         ]
       }
+      learning_path_nodes: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          order_index: number | null
+          path_id: string
+          position_x: number | null
+          position_y: number | null
+          prerequisite_node_id: string | null
+          title: string
+          topic_id: string | null
+          xp_reward: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          order_index?: number | null
+          path_id: string
+          position_x?: number | null
+          position_y?: number | null
+          prerequisite_node_id?: string | null
+          title: string
+          topic_id?: string | null
+          xp_reward?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          order_index?: number | null
+          path_id?: string
+          position_x?: number | null
+          position_y?: number | null
+          prerequisite_node_id?: string | null
+          title?: string
+          topic_id?: string | null
+          xp_reward?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_path_nodes_path_id_fkey"
+            columns: ["path_id"]
+            isOneToOne: false
+            referencedRelation: "learning_paths"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "learning_path_nodes_prerequisite_node_id_fkey"
+            columns: ["prerequisite_node_id"]
+            isOneToOne: false
+            referencedRelation: "learning_path_nodes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "learning_path_nodes_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      learning_paths: {
+        Row: {
+          color: string | null
+          created_at: string | null
+          description: string | null
+          education_level: Database["public"]["Enums"]["education_level"]
+          icon: string | null
+          id: string
+          name: string
+          order_index: number | null
+          subject_id: string | null
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          education_level: Database["public"]["Enums"]["education_level"]
+          icon?: string | null
+          id?: string
+          name: string
+          order_index?: number | null
+          subject_id?: string | null
+        }
+        Update: {
+          color?: string | null
+          created_at?: string | null
+          description?: string | null
+          education_level?: Database["public"]["Enums"]["education_level"]
+          icon?: string | null
+          id?: string
+          name?: string
+          order_index?: number | null
+          subject_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "learning_paths_subject_id_fkey"
+            columns: ["subject_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       learning_streaks: {
         Row: {
           created_at: string
@@ -1141,6 +1249,269 @@ export type Database = {
           },
         ]
       }
+      tryout_answers: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_correct: boolean | null
+          question_id: string
+          session_id: string
+          time_spent_seconds: number | null
+          user_answer: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_correct?: boolean | null
+          question_id: string
+          session_id: string
+          time_spent_seconds?: number | null
+          user_answer?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_correct?: boolean | null
+          question_id?: string
+          session_id?: string
+          time_spent_seconds?: number | null
+          user_answer?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_answers_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tryout_answers_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_packages: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          education_level: Database["public"]["Enums"]["education_level"]
+          end_date: string | null
+          id: string
+          is_active: boolean | null
+          is_premium: boolean | null
+          start_date: string | null
+          title: string
+          total_questions: number | null
+          tryout_type_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          education_level: Database["public"]["Enums"]["education_level"]
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+          start_date?: string | null
+          title: string
+          total_questions?: number | null
+          tryout_type_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          education_level?: Database["public"]["Enums"]["education_level"]
+          end_date?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+          start_date?: string | null
+          title?: string
+          total_questions?: number | null
+          tryout_type_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_packages_tryout_type_id_fkey"
+            columns: ["tryout_type_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_types"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string | null
+          difficulty: string | null
+          explanation: string | null
+          id: string
+          image_url: string | null
+          options: Json | null
+          order_index: number | null
+          points: number | null
+          question_text: string
+          question_type: string | null
+          section_id: string
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string | null
+          difficulty?: string | null
+          explanation?: string | null
+          id?: string
+          image_url?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_text: string
+          question_type?: string | null
+          section_id: string
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string | null
+          difficulty?: string | null
+          explanation?: string | null
+          id?: string
+          image_url?: string | null
+          options?: Json | null
+          order_index?: number | null
+          points?: number | null
+          question_text?: string
+          question_type?: string | null
+          section_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_questions_section_id_fkey"
+            columns: ["section_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_sections"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_sections: {
+        Row: {
+          created_at: string | null
+          duration_minutes: number
+          id: string
+          name: string
+          order_index: number | null
+          package_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          duration_minutes: number
+          id?: string
+          name: string
+          order_index?: number | null
+          package_id: string
+        }
+        Update: {
+          created_at?: string | null
+          duration_minutes?: number
+          id?: string
+          name?: string
+          order_index?: number | null
+          package_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_sections_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_packages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_sessions: {
+        Row: {
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          package_id: string
+          percentage: number | null
+          ranking: number | null
+          started_at: string | null
+          status: string | null
+          total_score: number | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          package_id: string
+          percentage?: number | null
+          ranking?: number | null
+          started_at?: string | null
+          status?: string | null
+          total_score?: number | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          package_id?: string
+          percentage?: number | null
+          ranking?: number | null
+          started_at?: string | null
+          status?: string | null
+          total_score?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tryout_sessions_package_id_fkey"
+            columns: ["package_id"]
+            isOneToOne: false
+            referencedRelation: "tryout_packages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tryout_types: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration_minutes: number
+          icon: string | null
+          id: string
+          is_active: boolean | null
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number
+          icon?: string | null
+          id?: string
+          is_active?: boolean | null
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
       user_badges: {
         Row: {
           badge_id: string
@@ -1264,6 +1635,41 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      user_path_progress: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          node_id: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          node_id: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          node_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_path_progress_node_id_fkey"
+            columns: ["node_id"]
+            isOneToOne: false
+            referencedRelation: "learning_path_nodes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_preferences: {
         Row: {
@@ -1403,6 +1809,94 @@ export type Database = {
             columns: ["plan_id"]
             isOneToOne: false
             referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      video_lessons: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration_seconds: number | null
+          id: string
+          is_premium: boolean | null
+          order_index: number | null
+          thumbnail_url: string | null
+          title: string
+          topic_id: string
+          video_provider: string
+          video_url: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_premium?: boolean | null
+          order_index?: number | null
+          thumbnail_url?: string | null
+          title: string
+          topic_id: string
+          video_provider?: string
+          video_url: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          is_premium?: boolean | null
+          order_index?: number | null
+          thumbnail_url?: string | null
+          title?: string
+          topic_id?: string
+          video_provider?: string
+          video_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_lessons_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      video_progress: {
+        Row: {
+          completed: boolean | null
+          created_at: string | null
+          id: string
+          last_watched_at: string | null
+          user_id: string
+          video_id: string
+          watched_seconds: number | null
+        }
+        Insert: {
+          completed?: boolean | null
+          created_at?: string | null
+          id?: string
+          last_watched_at?: string | null
+          user_id: string
+          video_id: string
+          watched_seconds?: number | null
+        }
+        Update: {
+          completed?: boolean | null
+          created_at?: string | null
+          id?: string
+          last_watched_at?: string | null
+          user_id?: string
+          video_id?: string
+          watched_seconds?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_progress_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "video_lessons"
             referencedColumns: ["id"]
           },
         ]
