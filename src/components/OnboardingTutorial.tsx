@@ -20,7 +20,7 @@ export default function OnboardingTutorial({ onComplete }: { onComplete: () => v
   const { t } = useLanguage();
 
   const steps: OnboardingStep[] = [
-    { icon: <Sparkles className="h-12 w-12" />, title: t('welcomeToEduPlay'), description: 'Platform belajar interaktif yang menyenangkan!', color: 'from-primary to-pink-500' },
+    { icon: <Sparkles className="h-12 w-12" />, title: t('welcomeToEduverse'), description: 'Platform edukasi interaktif #1 Indonesia!', color: 'from-primary to-pink-500' },
     { icon: <BookOpen className="h-12 w-12" />, title: t('onboardingStep1'), description: 'Tersedia berbagai mata pelajaran sesuai jenjang pendidikanmu.', color: 'from-secondary to-teal-500' },
     { icon: <Gamepad2 className="h-12 w-12" />, title: t('onboardingStep2'), description: 'Kuis, Puzzle, Memory Game, dan Drag & Drop!', color: 'from-accent to-yellow-500' },
     { icon: <Trophy className="h-12 w-12" />, title: t('onboardingStep3'), description: 'Kumpulkan poin dan XP untuk naik level!', color: 'from-orange to-red-500' },
