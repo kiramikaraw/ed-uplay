@@ -104,9 +104,9 @@ export default function ResetPassword() {
         </Link>
 
         <div className="flex items-center gap-3 mb-8">
-          <span className="text-4xl">🎮</span>
-          <span className="font-bold text-3xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            EduPlay
+          <img src="/favicon.svg" alt="Eduverse" className="w-12 h-12" />
+          <span className="font-bold text-3xl bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
+            Eduverse
           </span>
         </div>
 

@@ -287,10 +287,10 @@ export default function ParentDashboard() {
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2">
-            <span className="text-3xl">🎮</span>
-            <span className="font-bold text-2xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              EduPlay
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/favicon.svg" alt="Eduverse" className="w-10 h-10" />
+            <span className="font-bold text-2xl bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
+              Eduverse
             </span>
             <span className="text-sm bg-purple text-white px-2 py-1 rounded-full">Orang Tua</span>
           </Link>
@@ -330,7 +330,7 @@ export default function ParentDashboard() {
                     <div className="space-y-4 mt-4">
                       <div>
                         <p className="text-sm text-muted-foreground mb-2">
-                          Masukkan nama anak yang terdaftar di EduPlay
+                          Masukkan nama anak yang terdaftar di Eduverse
                         </p>
                         <Input
                           placeholder="Nama anak"
