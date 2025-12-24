@@ -193,6 +193,47 @@ export type Database = {
           },
         ]
       }
+      chapters: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          grade: number
+          id: string
+          name: string
+          order_index: number | null
+          semester: number | null
+          topic_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          grade: number
+          id?: string
+          name: string
+          order_index?: number | null
+          semester?: number | null
+          topic_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          grade?: number
+          id?: string
+          name?: string
+          order_index?: number | null
+          semester?: number | null
+          topic_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapters_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       class_members: {
         Row: {
           class_id: string
@@ -871,6 +912,65 @@ export type Database = {
         }
         Relationships: []
       }
+      question_banks: {
+        Row: {
+          correct_answer: string
+          created_at: string | null
+          difficulty: Database["public"]["Enums"]["difficulty"]
+          explanation: string | null
+          hints: Json | null
+          id: string
+          image_url: string | null
+          options: Json
+          question_text: string
+          source: string | null
+          times_answered: number | null
+          times_correct: number | null
+          topic_id: string
+          video_explanation_url: string | null
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty"]
+          explanation?: string | null
+          hints?: Json | null
+          id?: string
+          image_url?: string | null
+          options: Json
+          question_text: string
+          source?: string | null
+          times_answered?: number | null
+          times_correct?: number | null
+          topic_id: string
+          video_explanation_url?: string | null
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty"]
+          explanation?: string | null
+          hints?: Json | null
+          id?: string
+          image_url?: string | null
+          options?: Json
+          question_text?: string
+          source?: string | null
+          times_answered?: number | null
+          times_correct?: number | null
+          topic_id?: string
+          video_explanation_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_banks_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       questions: {
         Row: {
           correct_answer: string
@@ -964,6 +1064,59 @@ export type Database = {
             columns: ["game_id"]
             isOneToOne: false
             referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      quiz_sessions: {
+        Row: {
+          completed_at: string | null
+          correct_answers: number | null
+          created_at: string | null
+          id: string
+          questions_data: Json | null
+          quiz_mode: string
+          score: number | null
+          started_at: string | null
+          time_spent_seconds: number | null
+          topic_id: string
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          correct_answers?: number | null
+          created_at?: string | null
+          id?: string
+          questions_data?: Json | null
+          quiz_mode?: string
+          score?: number | null
+          started_at?: string | null
+          time_spent_seconds?: number | null
+          topic_id: string
+          total_questions: number
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          correct_answers?: number | null
+          created_at?: string | null
+          id?: string
+          questions_data?: Json | null
+          quiz_mode?: string
+          score?: number | null
+          started_at?: string | null
+          time_spent_seconds?: number | null
+          topic_id?: string
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_sessions_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
             referencedColumns: ["id"]
           },
         ]
@@ -1210,6 +1363,56 @@ export type Database = {
           slug?: string
         }
         Relationships: []
+      }
+      topic_statistics: {
+        Row: {
+          average_time_seconds: number | null
+          correct_answers: number | null
+          created_at: string | null
+          id: string
+          last_practiced: string | null
+          mastery_score: number | null
+          topic_id: string
+          total_attempts: number | null
+          updated_at: string | null
+          user_id: string
+          weak_areas: Json | null
+        }
+        Insert: {
+          average_time_seconds?: number | null
+          correct_answers?: number | null
+          created_at?: string | null
+          id?: string
+          last_practiced?: string | null
+          mastery_score?: number | null
+          topic_id: string
+          total_attempts?: number | null
+          updated_at?: string | null
+          user_id: string
+          weak_areas?: Json | null
+        }
+        Update: {
+          average_time_seconds?: number | null
+          correct_answers?: number | null
+          created_at?: string | null
+          id?: string
+          last_practiced?: string | null
+          mastery_score?: number | null
+          topic_id?: string
+          total_attempts?: number | null
+          updated_at?: string | null
+          user_id?: string
+          weak_areas?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "topic_statistics_topic_id_fkey"
+            columns: ["topic_id"]
+            isOneToOne: false
+            referencedRelation: "topics"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       topics: {
         Row: {
