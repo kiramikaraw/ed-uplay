@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
 import { GameButton } from '@/components/ui/game-button';
 import { Mascot } from '@/components/Mascot';
+import { FuturisticLogo } from '@/components/FuturisticLogo';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -198,11 +199,8 @@ export default function Auth() {
             Kembali ke Beranda
           </Link>
 
-          <div className="flex items-center gap-3 mb-8">
-            <img src="/favicon.svg" alt="Eduverse" className="w-12 h-12" />
-            <span className="font-bold text-3xl bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
-              Eduverse
-            </span>
+          <div className="mb-8">
+            <FuturisticLogo size="lg" />
           </div>
 
           <h1 className="text-2xl font-bold mb-2">

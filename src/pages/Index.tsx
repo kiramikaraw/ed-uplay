@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { GameButton } from '@/components/ui/game-button';
 import { Mascot, MascotMessage } from '@/components/Mascot';
+import { FuturisticLogo } from '@/components/FuturisticLogo';
 import { 
   Brain, Hand, Grid3X3, Puzzle, GraduationCap, Users, Sparkles, Star, Trophy, Rocket,
   CheckCircle, Zap, Shield, BookOpen, Target, Award, ChevronRight, Play, Video, FileText, Globe
@@ -27,11 +28,8 @@ export default function Index() {
       <div className="min-h-screen bg-background">
         <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-            <Link to="/" className="flex items-center gap-3">
-              <img src="/favicon.svg" alt="Eduverse" className="w-10 h-10" />
-              <span className="font-bold text-2xl bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
-                Eduverse
-              </span>
+            <Link to="/">
+              <FuturisticLogo size="md" />
             </Link>
             <nav className="flex items-center gap-4">
               <Link to="/dashboard">
@@ -129,12 +127,9 @@ export default function Index() {
       {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <img src="/favicon.svg" alt="Eduverse" className="w-10 h-10" />
-            <span className="font-bold text-2xl bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
-              Eduverse
-            </span>
-          </div>
+          <Link to="/">
+            <FuturisticLogo size="md" />
+          </Link>
           <nav className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Fitur</a>
             <a href="#games" className="text-muted-foreground hover:text-foreground transition-colors">Game</a>
@@ -572,11 +567,8 @@ export default function Index() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
-              <div className="flex items-center gap-3 mb-4">
-                <img src="/favicon.svg" alt="Eduverse" className="w-8 h-8" />
-                <span className="font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  Eduverse
-                </span>
+              <div className="mb-4">
+                <FuturisticLogo size="sm" />
               </div>
               <p className="text-muted-foreground text-sm">
                 Platform edukasi interaktif #1 Indonesia. Learn, Play, Grow.
