@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#06b6d4;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#06b6d4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background circle with gradient -->
+  <circle cx="256" cy="256" r="240" fill="url(#grad1)" opacity="0.1"/>
+  
+  <!-- Outer orbit ring -->
+  <ellipse cx="256" cy="256" rx="200" ry="80" stroke="url(#grad2)" stroke-width="4" fill="none" transform="rotate(-20 256 256)" opacity="0.6"/>
+  <ellipse cx="256" cy="256" rx="200" ry="80" stroke="url(#grad1)" stroke-width="4" fill="none" transform="rotate(40 256 256)" opacity="0.6"/>
+  <ellipse cx="256" cy="256" rx="200" ry="80" stroke="url(#grad2)" stroke-width="4" fill="none" transform="rotate(100 256 256)" opacity="0.6"/>
+  
+  <!-- Central hexagon (knowledge/tech symbol) -->
+  <polygon points="256,120 336,168 336,264 256,312 176,264 176,168" fill="url(#grad1)" filter="url(#glow)"/>
+  
+  <!-- Inner hexagon -->
+  <polygon points="256,150 310,183 310,249 256,282 202,249 202,183" fill="none" stroke="white" stroke-width="3" opacity="0.8"/>
+  
+  <!-- E letter stylized -->
+  <path d="M230 180 L230 252 M230 180 L280 180 M230 216 L270 216 M230 252 L280 252" stroke="white" stroke-width="8" stroke-linecap="round" fill="none"/>
+  
+  <!-- Orbiting dots (planets/knowledge nodes) -->
+  <circle cx="456" cy="256" r="12" fill="url(#grad2)" filter="url(#glow)">
+    <animateTransform attributeName="transform" type="rotate" from="0 256 256" to="360 256 256" dur="20s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="56" cy="256" r="8" fill="url(#grad1)" filter="url(#glow)">
+    <animateTransform attributeName="transform" type="rotate" from="180 256 256" to="540 256 256" dur="25s" repeatCount="indefinite"/>
+  </circle>
+  <circle cx="356" cy="120" r="10" fill="#06b6d4" filter="url(#glow)">
+    <animateTransform attributeName="transform" type="rotate" from="60 256 256" to="420 256 256" dur="15s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Small accent dots -->
+  <circle cx="180" cy="380" r="6" fill="#8b5cf6" opacity="0.8"/>
+  <circle cx="332" cy="400" r="4" fill="#06b6d4" opacity="0.8"/>
+  <circle cx="400" cy="340" r="5" fill="#6366f1" opacity="0.8"/>
+  
+  <!-- Text: EDUVERSE -->
+  <text x="256" y="420" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="url(#grad1)" text-anchor="middle" letter-spacing="8">EDUVERSE</text>
+  <text x="256" y="450" font-family="Arial, sans-serif" font-size="16" fill="#8b5cf6" text-anchor="middle" letter-spacing="4" opacity="0.8">LEARN • PLAY • GROW</text>
+</svg>
