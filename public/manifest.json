@@ -1,23 +1,23 @@
 {
-  "name": "EduPlay - Belajar Sambil Bermain",
-  "short_name": "EduPlay",
-  "description": "Platform belajar interaktif dengan game edukatif untuk siswa Indonesia",
+  "name": "Eduverse - Learn, Play, Grow",
+  "short_name": "Eduverse",
+  "description": "Platform edukasi interaktif #1 Indonesia dengan video learning, tryout UTBK, dan game edukatif",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "background_color": "#0A0A0F",
-  "theme_color": "#8B5CF6",
+  "theme_color": "#6366f1",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "64x64",
-      "type": "image/x-icon"
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
     },
     {
-      "src": "/favicon.ico",
+      "src": "/favicon.svg",
       "sizes": "192x192",
-      "type": "image/x-icon",
+      "type": "image/svg+xml",
       "purpose": "any maskable"
     }
   ],
