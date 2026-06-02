@@ -13,6 +13,7 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import ParentDashboard from "./pages/ParentDashboard";
 import Subjects from "./pages/Subjects";
 import SubjectDetail from "./pages/SubjectDetail";
+import ModuleDetail from "./pages/ModuleDetail";
 import ProfileSettings from "./pages/ProfileSettings";
 import LogoPage from "./pages/LogoPage";
 import QuizGame from "./pages/games/QuizGame";
@@ -41,6 +42,7 @@ const App = () => (
               <Route path="/parent" element={<ParentDashboard />} />
               <Route path="/subjects" element={<Subjects />} />
               <Route path="/subjects/:subjectId" element={<SubjectDetail />} />
+              <Route path="/modul/:moduleId" element={<ModuleDetail />} />
               <Route path="/settings" element={<ProfileSettings />} />
               <Route path="/logo" element={<LogoPage />} />
               <Route path="/quiz" element={<QuizHub />} />
