@@ -501,6 +501,15 @@ export default function Index() {
           </div>
         </section>
 
+        {/* Creator Platform */}
+        <CreatorPlatformSection />
+
+        {/* Pricing */}
+        <PricingSection />
+
+        {/* FAQ */}
+        <FAQSection />
+
         {/* CTA */}
         <section className="py-24 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-purple/10 to-secondary/10" />
