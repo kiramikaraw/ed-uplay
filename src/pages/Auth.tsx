@@ -393,21 +393,217 @@ export default function Auth() {
               </div>
 
               {mode === 'signup' && role === 'student' && (
-                <div>
-                  <Label htmlFor="educationLevel">Jenjang Pendidikan</Label>
-                  <Select value={educationLevel} onValueChange={setEducationLevel}>
-                    <SelectTrigger className="mt-1 h-12 rounded-xl">
-                      <SelectValue placeholder="Pilih jenjang" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="sd">SD (Sekolah Dasar)</SelectItem>
-                      <SelectItem value="smp">SMP (Sekolah Menengah Pertama)</SelectItem>
-                      <SelectItem value="sma">SMA (Sekolah Menengah Atas)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  {errors.educationLevel && <p className="text-sm text-destructive mt-1">{errors.educationLevel}</p>}
-                </div>
+                <>
+                  <div>
+                    <Label htmlFor="age">Umur</Label>
+                    <Input
+                      id="age"
+                      type="number"
+                      min={5}
+                      max={60}
+                      placeholder="Contoh: 15"
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
+                      className="mt-1 h-12 rounded-xl"
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="jenjang">Jenjang Pendidikan</Label>
+                    <Select value={jenjang} onValueChange={(v) => { setJenjang(v); setKelas(''); setJurusanSma(''); setJurusanSmk(''); setFakultas(''); setProdi(''); setUtbkTarget(''); setUtbkJurusan(''); }}>
+                      <SelectTrigger className="mt-1 h-12 rounded-xl">
+                        <SelectValue placeholder="Pilih jenjang" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {JENJANG_OPTIONS.map((j) => (
+                          <SelectItem key={j.value} value={j.value}>{j.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.jenjang && <p className="text-sm text-destructive mt-1">{errors.jenjang}</p>}
+                  </div>
+
+                  {KELAS_BY_JENJANG[jenjang] && (
+                    <div>
+                      <Label htmlFor="kelas">Kelas</Label>
+                      <Select value={kelas} onValueChange={setKelas}>
+                        <SelectTrigger className="mt-1 h-12 rounded-xl">
+                          <SelectValue placeholder="Pilih kelas" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {KELAS_BY_JENJANG[jenjang].map((k) => (
+                            <SelectItem key={k} value={k}>{k}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.kelas && <p className="text-sm text-destructive mt-1">{errors.kelas}</p>}
+                    </div>
+                  )}
+
+                  {jenjang === 'sma' && (
+                    <div>
+                      <Label>Jurusan</Label>
+                      <Select value={jurusanSma} onValueChange={setJurusanSma}>
+                        <SelectTrigger className="mt-1 h-12 rounded-xl">
+                          <SelectValue placeholder="Pilih jurusan" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {JURUSAN_SMA.map((j) => <SelectItem key={j} value={j}>{j}</SelectItem>)}
+                        </SelectContent>
+                      </Select>
+                      {errors.jurusanSma && <p className="text-sm text-destructive mt-1">{errors.jurusanSma}</p>}
+                    </div>
+                  )}
+
+                  {jenjang === 'smk' && (
+                    <div>
+                      <Label>Jurusan SMK</Label>
+                      <div className="mt-1">
+                        <SearchableSelect
+                          options={JURUSAN_SMK}
+                          value={jurusanSmk}
+                          onChange={setJurusanSmk}
+                          placeholder="Cari & pilih jurusan SMK"
+                        />
+                      </div>
+                      {errors.jurusanSmk && <p className="text-sm text-destructive mt-1">{errors.jurusanSmk}</p>}
+                    </div>
+                  )}
+
+                  {jenjang === 'kuliah' && (
+                    <>
+                      <div>
+                        <Label>Fakultas</Label>
+                        <Select value={fakultas} onValueChange={(v) => { setFakultas(v); setProdi(''); }}>
+                          <SelectTrigger className="mt-1 h-12 rounded-xl">
+                            <SelectValue placeholder="Pilih fakultas" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {Object.keys(FAKULTAS_PRODI).map((f) => <SelectItem key={f} value={f}>{f}</SelectItem>)}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      {fakultas && (
+                        <div>
+                          <Label>Program Studi</Label>
+                          <div className="mt-1">
+                            <SearchableSelect
+                              options={FAKULTAS_PRODI[fakultas]}
+                              value={prodi}
+                              onChange={setProdi}
+                              placeholder="Cari & pilih program studi"
+                            />
+                          </div>
+                        </div>
+                      )}
+                      {errors.fakultas && <p className="text-sm text-destructive mt-1">{errors.fakultas}</p>}
+                    </>
+                  )}
+
+                  {jenjang === 'utbk' && (
+                    <>
+                      <div>
+                        <Label>Target</Label>
+                        <Select value={utbkTarget} onValueChange={setUtbkTarget}>
+                          <SelectTrigger className="mt-1 h-12 rounded-xl">
+                            <SelectValue placeholder="Pilih target" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {UTBK_TARGETS.map((t) => <SelectItem key={t} value={t}>{t}</SelectItem>)}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <Label>Target Jurusan</Label>
+                        <div className="mt-1">
+                          <SearchableSelect
+                            options={UTBK_JURUSAN}
+                            value={utbkJurusan}
+                            onChange={setUtbkJurusan}
+                            placeholder="Cari & pilih target jurusan"
+                          />
+                        </div>
+                      </div>
+                      {errors.utbkTarget && <p className="text-sm text-destructive mt-1">{errors.utbkTarget}</p>}
+                    </>
+                  )}
+
+                  <div>
+                    <Label>Agama</Label>
+                    <Select value={agama} onValueChange={setAgama}>
+                      <SelectTrigger className="mt-1 h-12 rounded-xl">
+                        <SelectValue placeholder="Pilih agama" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {AGAMA_OPTIONS.map((a) => <SelectItem key={a} value={a}>{a}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    {errors.agama && <p className="text-sm text-destructive mt-1">{errors.agama}</p>}
+                  </div>
+
+                  <div className="flex gap-2 items-start p-3 rounded-xl bg-primary/5 border border-primary/20">
+                    <Info className="w-4 h-4 text-primary mt-0.5 shrink-0" />
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Isi data belajar sesuai kondisi sebenarnya agar sistem dapat memberikan rekomendasi materi yang lebih akurat.
+                    </p>
+                  </div>
+                </>
               )}
+
+              {mode === 'signup' && role === 'teacher' && (
+                <>
+                  <div>
+                    <Label>Bidang Keahlian</Label>
+                    <div className="mt-1">
+                      <SearchableSelect
+                        options={BIDANG_GURU}
+                        value={bidang}
+                        onChange={setBidang}
+                        placeholder="Cari & pilih bidang keahlian"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="mapel">Mata Pelajaran</Label>
+                    <Input id="mapel" value={mapel} onChange={(e) => setMapel(e.target.value)} placeholder="Contoh: Matematika SMA" className="mt-1 h-12 rounded-xl" />
+                  </div>
+                  <div>
+                    <Label htmlFor="pengalaman">Pengalaman Mengajar</Label>
+                    <Input id="pengalaman" value={pengalaman} onChange={(e) => setPengalaman(e.target.value)} placeholder="Contoh: 5 tahun" className="mt-1 h-12 rounded-xl" />
+                  </div>
+                  <div>
+                    <Label htmlFor="institusi">Institusi (opsional)</Label>
+                    <Input id="institusi" value={institusi} onChange={(e) => setInstitusi(e.target.value)} placeholder="Nama sekolah / lembaga" className="mt-1 h-12 rounded-xl" />
+                  </div>
+                  {errors.bidang && <p className="text-sm text-destructive mt-1">{errors.bidang}</p>}
+                </>
+              )}
+
+              {mode === 'signup' && role === 'parent' && (
+                <>
+                  <div>
+                    <Label htmlFor="namaAnak">Nama Anak</Label>
+                    <Input id="namaAnak" value={namaAnak} onChange={(e) => setNamaAnak(e.target.value)} placeholder="Nama lengkap anak" className="mt-1 h-12 rounded-xl" />
+                  </div>
+                  <div>
+                    <Label>Jenjang Anak</Label>
+                    <Select value={jenjangAnak} onValueChange={setJenjangAnak}>
+                      <SelectTrigger className="mt-1 h-12 rounded-xl">
+                        <SelectValue placeholder="Pilih jenjang anak" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {JENJANG_OPTIONS.map((j) => <SelectItem key={j.value} value={j.value}>{j.label}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="kodeAnak">Kode Akun Anak (opsional)</Label>
+                    <Input id="kodeAnak" value={kodeAnak} onChange={(e) => setKodeAnak(e.target.value)} placeholder="Untuk menghubungkan dashboard" className="mt-1 h-12 rounded-xl" />
+                  </div>
+                  {errors.namaAnak && <p className="text-sm text-destructive mt-1">{errors.namaAnak}</p>}
+                </>
+              )}
+
 
               <GameButton
                 type="submit"
