@@ -44,7 +44,7 @@ const WordScrambleGame = () => {
   const [timeLeft, setTimeLeft] = useState(60);
   const [isPlaying, setIsPlaying] = useState(false);
   const [hintsUsed, setHintsUsed] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const scrambleWord = (word: string) => {
     const arr = word.split('');
@@ -168,7 +168,7 @@ const MathRaceGame = () => {
   const [timeLeft, setTimeLeft] = useState(30);
   const [isPlaying, setIsPlaying] = useState(false);
   const [streak, setStreak] = useState(0);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const startGame = () => {
     const shuffled = [...MATH_QUESTIONS].sort(() => Math.random() - 0.5);
