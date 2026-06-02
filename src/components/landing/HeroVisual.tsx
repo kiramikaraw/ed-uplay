@@ -4,17 +4,17 @@ import { Video, Brain, FileText, Trophy } from 'lucide-react';
 export function HeroVisual() {
   return (
     <div className="relative w-full aspect-square max-w-[560px] mx-auto">
-      {/* Soft gradient backdrop */}
-      <div className="absolute inset-[8%] rounded-full bg-gradient-to-br from-primary/20 via-purple/15 to-secondary/20 blur-2xl" />
-      <div className="absolute inset-[12%] rounded-full bg-gradient-to-br from-primary/10 via-purple/10 to-secondary/10 backdrop-blur-sm border border-white/30" />
+      {/* Soft gradient backdrop - purple/cyan */}
+      <div className="absolute inset-[8%] rounded-full bg-gradient-to-br from-purple/20 via-secondary/15 to-purple/20 blur-2xl" />
+      <div className="absolute inset-[12%] rounded-full bg-gradient-to-br from-purple/10 via-secondary/10 to-purple/10 backdrop-blur-sm border border-white/30" />
 
-      {/* Atom orbits */}
+      {/* Atom orbits - cyan/blue */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-[18%]"
       >
-        <div className="w-full h-full rounded-full border-2 border-primary/40" />
+        <div className="w-full h-full rounded-full border-2 border-secondary/50" />
       </motion.div>
       <motion.div
         animate={{ rotate: -360 }}
@@ -29,7 +29,7 @@ export function HeroVisual() {
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-[18%]"
       >
-        <div className="w-full h-full rounded-full border-2 border-purple/40" style={{ transform: 'rotateX(70deg) rotateZ(60deg)' }} />
+        <div className="w-full h-full rounded-full border-2 border-secondary/40" style={{ transform: 'rotateX(70deg) rotateZ(60deg)' }} />
       </motion.div>
 
       {/* Center hexagon with E */}
