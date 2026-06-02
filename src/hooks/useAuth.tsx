@@ -79,7 +79,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     password: string, 
     fullName: string, 
     role: 'student' | 'teacher' | 'parent',
-    educationLevel?: string
+    educationLevel?: string,
+    extraMetadata?: Record<string, any>
   ) => {
     const redirectUrl = `${window.location.origin}/`;
     
@@ -92,6 +93,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           full_name: fullName,
           role: role,
           education_level: educationLevel || null,
+          ...(extraMetadata || {}),
         },
       },
     });
