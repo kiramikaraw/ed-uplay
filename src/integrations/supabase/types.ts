@@ -2116,6 +2116,13 @@ export type Database = {
         }
         Returns: boolean
       }
+      lookup_referral_code: {
+        Args: { _code: string }
+        Returns: {
+          code: string
+          id: string
+        }[]
+      }
     }
     Enums: {
       app_role: "student" | "teacher" | "parent"
