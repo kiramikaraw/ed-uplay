@@ -97,14 +97,14 @@ export function HeroVisual() {
       <motion.div
         animate={{ y: [0, -10, 0] }}
         transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-        className="absolute top-[28%] right-[0%] w-16 h-16 rounded-2xl bg-card shadow-xl border border-border flex items-center justify-center"
+        className="absolute top-[18%] right-[2%] w-16 h-16 rounded-2xl bg-card shadow-xl border border-border flex items-center justify-center"
       >
         <FileText className="w-7 h-7 text-secondary" />
       </motion.div>
       <motion.div
         animate={{ y: [0, 14, 0] }}
         transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut', delay: 0.8 }}
-        className="absolute bottom-[18%] right-[2%] w-16 h-16 rounded-2xl bg-card shadow-xl border border-border flex items-center justify-center"
+        className="absolute bottom-[22%] right-[-4%] w-16 h-16 rounded-2xl bg-card shadow-xl border border-border flex items-center justify-center"
       >
         <Trophy className="w-7 h-7 text-warning" />
       </motion.div>
