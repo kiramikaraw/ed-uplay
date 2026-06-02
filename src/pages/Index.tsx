@@ -8,7 +8,7 @@ import {
   CheckCircle, Zap, Shield, BookOpen, Target, Award, ChevronRight, Play, Video, FileText, Globe
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { HeroDashboardMockup } from '@/components/landing/HeroDashboardMockup';
+import { HeroVisual } from '@/components/landing/HeroVisual';
 import { WhyDifferent } from '@/components/landing/WhyDifferent';
 import { HowItWorks } from '@/components/landing/HowItWorks';
 import { PersonalizedLearningSection } from '@/components/landing/PersonalizedLearningSection';
@@ -141,8 +141,8 @@ export default function Index() {
           <nav className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Fitur</a>
             <a href="#games" className="text-muted-foreground hover:text-foreground transition-colors">Game</a>
-            <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Harga</a>
-            <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
+            <a href="#platform" className="text-muted-foreground hover:text-foreground transition-colors">Platform</a>
+            <a href="#testimoni" className="text-muted-foreground hover:text-foreground transition-colors">Testimoni</a>
           </nav>
           <div className="flex items-center gap-3">
             <Link to="/auth?mode=login">
@@ -259,7 +259,7 @@ export default function Index() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="relative flex items-center justify-center"
               >
-                <FuturisticLogo size="lg" />
+                <HeroVisual />
               </motion.div>
             </div>
           </div>
