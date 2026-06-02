@@ -257,9 +257,9 @@ export default function Index() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="relative"
+                className="relative flex items-center justify-center"
               >
-                <HeroDashboardMockup />
+                <FuturisticLogo size="lg" />
               </motion.div>
             </div>
           </div>
