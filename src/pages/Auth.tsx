@@ -154,14 +154,7 @@ export default function Auth() {
           navigate('/dashboard');
         }
       } else {
-        const result = signupSchema.safeParse({ 
-          email, 
-          password, 
-          fullName, 
-          role,
-          educationLevel: role === 'student' ? educationLevel : undefined,
-        });
-        
+        const result = signupBaseSchema.safeParse({ email, password, fullName, role });
         if (!result.success) {
           const fieldErrors: Record<string, string> = {};
           result.error.errors.forEach((err) => {
@@ -174,19 +167,42 @@ export default function Auth() {
           return;
         }
 
-        if (role === 'student' && !educationLevel) {
-          setErrors({ educationLevel: 'Pilih jenjang pendidikan' });
-          setLoading(false);
-          return;
+        // Role-specific validation + metadata
+        const extra: Record<string, any> = {};
+        if (role === 'student') {
+          if (!jenjang) { setErrors({ jenjang: 'Pilih jenjang pendidikan' }); setLoading(false); return; }
+          if (!agama) { setErrors({ agama: 'Pilih agama' }); setLoading(false); return; }
+          if (KELAS_BY_JENJANG[jenjang] && !kelas) { setErrors({ kelas: 'Pilih kelas' }); setLoading(false); return; }
+          if (jenjang === 'sma' && !jurusanSma) { setErrors({ jurusanSma: 'Pilih jurusan' }); setLoading(false); return; }
+          if (jenjang === 'smk' && !jurusanSmk) { setErrors({ jurusanSmk: 'Pilih jurusan' }); setLoading(false); return; }
+          if (jenjang === 'kuliah' && (!fakultas || !prodi)) { setErrors({ fakultas: 'Pilih fakultas & prodi' }); setLoading(false); return; }
+          if (jenjang === 'utbk' && (!utbkTarget || !utbkJurusan)) { setErrors({ utbkTarget: 'Pilih target & jurusan' }); setLoading(false); return; }
+          extra.age = age ? Number(age) : null;
+          extra.jenjang = jenjang;
+          extra.kelas = kelas || null;
+          extra.jurusan = jenjang === 'sma' ? jurusanSma : jenjang === 'smk' ? jurusanSmk : null;
+          extra.fakultas = jenjang === 'kuliah' ? fakultas : null;
+          extra.prodi = jenjang === 'kuliah' ? prodi : null;
+          extra.utbk_target = jenjang === 'utbk' ? utbkTarget : null;
+          extra.utbk_jurusan = jenjang === 'utbk' ? utbkJurusan : null;
+          extra.agama = agama;
+        } else if (role === 'teacher') {
+          if (!bidang || !mapel) { setErrors({ bidang: 'Lengkapi bidang & mata pelajaran' }); setLoading(false); return; }
+          extra.bidang = bidang;
+          extra.mata_pelajaran = mapel;
+          extra.pengalaman = pengalaman || null;
+          extra.institusi = institusi || null;
+        } else if (role === 'parent') {
+          if (!namaAnak || !jenjangAnak) { setErrors({ namaAnak: 'Lengkapi data anak' }); setLoading(false); return; }
+          extra.nama_anak = namaAnak;
+          extra.jenjang_anak = jenjangAnak;
+          extra.kode_anak = kodeAnak || null;
         }
 
-        const { error } = await signUp(
-          email, 
-          password, 
-          fullName, 
-          role,
-          role === 'student' ? educationLevel : undefined
-        );
+        const baseLevel = role === 'student' ? jenjangToBaseLevel(jenjang) : undefined;
+
+        const { error } = await signUp(email, password, fullName, role, baseLevel, extra);
+
         
         if (error) {
           if (error.message.includes('already registered')) {
