@@ -259,7 +259,7 @@ export default function Index() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="relative flex items-center justify-center"
               >
-                <FuturisticLogo size="xl" />
+                <FuturisticLogo size="lg" />
               </motion.div>
             </div>
           </div>
