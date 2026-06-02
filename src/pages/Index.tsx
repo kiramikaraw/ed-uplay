@@ -141,8 +141,8 @@ export default function Index() {
           <nav className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Fitur</a>
             <a href="#games" className="text-muted-foreground hover:text-foreground transition-colors">Game</a>
-            <a href="#platform" className="text-muted-foreground hover:text-foreground transition-colors">Platform</a>
-            <a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimoni</a>
+            <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Harga</a>
+            <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
           </nav>
           <div className="flex items-center gap-3">
             <Link to="/auth?mode=login">
