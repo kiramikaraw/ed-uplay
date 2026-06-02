@@ -8,21 +8,33 @@ import { FuturisticLogo } from '@/components/FuturisticLogo';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { SearchableSelect } from '@/components/ui/searchable-select';
 import { useToast } from '@/hooks/use-toast';
-import { GraduationCap, Users, Mail, Lock, User, ArrowLeft, Heart, CheckCircle } from 'lucide-react';
+import { GraduationCap, Users, Mail, Lock, User, ArrowLeft, Heart, CheckCircle, Info } from 'lucide-react';
 import { z } from 'zod';
+import {
+  JENJANG_OPTIONS,
+  KELAS_BY_JENJANG,
+  JURUSAN_SMA,
+  JURUSAN_SMK,
+  FAKULTAS_PRODI,
+  UTBK_TARGETS,
+  UTBK_JURUSAN,
+  AGAMA_OPTIONS,
+  BIDANG_GURU,
+  jenjangToBaseLevel,
+} from '@/lib/registerOptions';
 
 const loginSchema = z.object({
   email: z.string().email('Email tidak valid'),
   password: z.string().min(6, 'Password minimal 6 karakter'),
 });
 
-const signupSchema = z.object({
+const signupBaseSchema = z.object({
   email: z.string().email('Email tidak valid'),
   password: z.string().min(6, 'Password minimal 6 karakter'),
   fullName: z.string().min(2, 'Nama minimal 2 karakter'),
   role: z.enum(['student', 'teacher', 'parent']),
-  educationLevel: z.enum(['sd', 'smp', 'sma']).optional(),
 });
 
 export default function Auth() {
@@ -44,8 +56,28 @@ export default function Auth() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [fullName, setFullName] = useState('');
-  const [educationLevel, setEducationLevel] = useState<string>('');
+  const [age, setAge] = useState('');
+  const [jenjang, setJenjang] = useState<string>('');
+  const [kelas, setKelas] = useState<string>('');
+  const [jurusanSma, setJurusanSma] = useState<string>('');
+  const [jurusanSmk, setJurusanSmk] = useState<string>('');
+  const [fakultas, setFakultas] = useState<string>('');
+  const [prodi, setProdi] = useState<string>('');
+  const [utbkTarget, setUtbkTarget] = useState<string>('');
+  const [utbkJurusan, setUtbkJurusan] = useState<string>('');
+  const [agama, setAgama] = useState<string>('');
+  // Teacher
+  const [bidang, setBidang] = useState<string>('');
+  const [mapel, setMapel] = useState('');
+  const [pengalaman, setPengalaman] = useState('');
+  const [institusi, setInstitusi] = useState('');
+  // Parent
+  const [namaAnak, setNamaAnak] = useState('');
+  const [jenjangAnak, setJenjangAnak] = useState<string>('');
+  const [kodeAnak, setKodeAnak] = useState('');
+
   const [errors, setErrors] = useState<Record<string, string>>({});
+
 
   useEffect(() => {
     if (user) {
