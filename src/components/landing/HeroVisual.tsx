@@ -40,11 +40,10 @@ export function HeroVisual() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="relative"
         >
-          <svg width="180" height="200" viewBox="0 0 180 200" className="drop-shadow-[0_0_30px_hsl(var(--primary)/0.6)]">
+          <svg width="180" height="200" viewBox="0 0 180 200" className="drop-shadow-[0_0_30px_hsl(var(--purple)/0.6)]">
             <defs>
               <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(var(--primary))" />
-                <stop offset="50%" stopColor="hsl(var(--purple))" />
+                <stop offset="0%" stopColor="hsl(var(--purple))" />
                 <stop offset="100%" stopColor="hsl(var(--secondary))" />
               </linearGradient>
             </defs>
@@ -71,10 +70,10 @@ export function HeroVisual() {
 
       {/* Brand text under logo */}
       <div className="absolute left-1/2 -translate-x-1/2 bottom-[18%] text-center pointer-events-none">
-        <div className="text-2xl md:text-3xl font-black tracking-[0.2em] bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
+        <div className="text-2xl md:text-3xl font-black tracking-[0.2em] bg-gradient-to-r from-purple via-purple to-secondary bg-clip-text text-transparent">
           EDUVERSE
         </div>
-        <div className="text-[10px] md:text-xs tracking-[0.3em] text-primary/70 mt-1 font-semibold">
+        <div className="text-[10px] md:text-xs tracking-[0.3em] text-purple/70 mt-1 font-semibold">
           LEARN · PLAY · GROW
         </div>
       </div>
