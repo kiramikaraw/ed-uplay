@@ -8,6 +8,14 @@ import {
   CheckCircle, Zap, Shield, BookOpen, Target, Award, ChevronRight, Play, Video, FileText, Globe
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { HeroDashboardMockup } from '@/components/landing/HeroDashboardMockup';
+import { WhyDifferent } from '@/components/landing/WhyDifferent';
+import { HowItWorks } from '@/components/landing/HowItWorks';
+import { PersonalizedLearningSection } from '@/components/landing/PersonalizedLearningSection';
+import { AITutorSection } from '@/components/landing/AITutorSection';
+import { CreatorPlatformSection } from '@/components/landing/CreatorPlatformSection';
+import { PricingSection } from '@/components/landing/PricingSection';
+import { FAQSection } from '@/components/landing/FAQSection';
 
 export default function Index() {
   const { user, role, loading } = useAuth();
