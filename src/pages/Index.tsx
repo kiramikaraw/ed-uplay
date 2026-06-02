@@ -291,6 +291,20 @@ export default function Index() {
           </div>
         </section>
 
+        {/* Why Eduverse Different */}
+        <WhyDifferent />
+
+        {/* How It Works */}
+        <HowItWorks />
+
+        {/* Personalized Learning */}
+        <PersonalizedLearningSection />
+
+        {/* AI Tutor */}
+        <AITutorSection />
+
+
+
         {/* Platform Features */}
         <section id="platform" className="py-20 bg-gradient-to-b from-background to-muted/30">
           <div className="container mx-auto px-4">
