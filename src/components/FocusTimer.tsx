@@ -16,7 +16,7 @@ export function FocusTimer() {
   const [timeLeft, setTimeLeft] = useState(TIMER_SETTINGS.focus.duration);
   const [isRunning, setIsRunning] = useState(false);
   const [sessionsCompleted, setSessionsCompleted] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const intervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {

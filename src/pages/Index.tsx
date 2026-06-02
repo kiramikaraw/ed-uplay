@@ -8,6 +8,14 @@ import {
   CheckCircle, Zap, Shield, BookOpen, Target, Award, ChevronRight, Play, Video, FileText, Globe
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { HeroDashboardMockup } from '@/components/landing/HeroDashboardMockup';
+import { WhyDifferent } from '@/components/landing/WhyDifferent';
+import { HowItWorks } from '@/components/landing/HowItWorks';
+import { PersonalizedLearningSection } from '@/components/landing/PersonalizedLearningSection';
+import { AITutorSection } from '@/components/landing/AITutorSection';
+import { CreatorPlatformSection } from '@/components/landing/CreatorPlatformSection';
+import { PricingSection } from '@/components/landing/PricingSection';
+import { FAQSection } from '@/components/landing/FAQSection';
 
 export default function Index() {
   const { user, role, loading } = useAuth();
@@ -133,8 +141,8 @@ export default function Index() {
           <nav className="hidden md:flex items-center gap-6">
             <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Fitur</a>
             <a href="#games" className="text-muted-foreground hover:text-foreground transition-colors">Game</a>
-            <a href="#platform" className="text-muted-foreground hover:text-foreground transition-colors">Platform</a>
-            <a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimoni</a>
+            <a href="#pricing" className="text-muted-foreground hover:text-foreground transition-colors">Harga</a>
+            <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a>
           </nav>
           <div className="flex items-center gap-3">
             <Link to="/auth?mode=login">
@@ -246,54 +254,12 @@ export default function Index() {
               </motion.div>
               
               <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="relative hidden lg:block"
+                className="relative"
               >
-                <div className="absolute top-0 right-0 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 left-0 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-                
-                {/* Logo Display */}
-                <div className="relative z-10 flex justify-center">
-                  <motion.div
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="relative"
-                  >
-                    <img src="/eduverse-logo.svg" alt="Eduverse" className="w-80 h-80 drop-shadow-2xl" />
-                  </motion.div>
-                </div>
-                
-                {/* Floating Elements */}
-                <motion.div 
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-10 left-10 p-4 bg-card rounded-2xl shadow-xl border border-border"
-                >
-                  <Video className="w-8 h-8 text-primary" />
-                </motion.div>
-                <motion.div 
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute top-20 right-10 p-4 bg-card rounded-2xl shadow-xl border border-border"
-                >
-                  <FileText className="w-8 h-8 text-secondary" />
-                </motion.div>
-                <motion.div 
-                  animate={{ y: [0, -12, 0] }}
-                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                  className="absolute bottom-32 left-5 p-4 bg-card rounded-2xl shadow-xl border border-border"
-                >
-                  <Brain className="w-8 h-8 text-purple" />
-                </motion.div>
-                <motion.div 
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-                  className="absolute bottom-10 right-20 p-4 bg-card rounded-2xl shadow-xl border border-border"
-                >
-                  <Trophy className="w-8 h-8 text-warning" />
-                </motion.div>
+                <HeroDashboardMockup />
               </motion.div>
             </div>
           </div>
@@ -324,6 +290,20 @@ export default function Index() {
             </div>
           </div>
         </section>
+
+        {/* Why Eduverse Different */}
+        <WhyDifferent />
+
+        {/* How It Works */}
+        <HowItWorks />
+
+        {/* Personalized Learning */}
+        <PersonalizedLearningSection />
+
+        {/* AI Tutor */}
+        <AITutorSection />
+
+
 
         {/* Platform Features */}
         <section id="platform" className="py-20 bg-gradient-to-b from-background to-muted/30">
@@ -520,6 +500,15 @@ export default function Index() {
             </div>
           </div>
         </section>
+
+        {/* Creator Platform */}
+        <CreatorPlatformSection />
+
+        {/* Pricing */}
+        <PricingSection />
+
+        {/* FAQ */}
+        <FAQSection />
 
         {/* CTA */}
         <section className="py-24 relative overflow-hidden">
