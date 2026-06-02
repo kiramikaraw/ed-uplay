@@ -55,19 +55,8 @@ export default function ModuleDetail() {
         if (subjectData) setSubject(subjectData);
       }
 
-      if (user) {
-        const { data: sessions } = await supabase
-          .from('game_sessions')
-          .select('score')
-          .eq('user_id', user.id)
-          .eq('topic_id', moduleId);
-        if (sessions) {
-          setStats({
-            played: sessions.length,
-            bestScore: sessions.reduce((m, s) => Math.max(m, s.score || 0), 0),
-          });
-        }
-      }
+      // Stats per module not tracked yet; placeholder counts.
+      setStats({ played: 0, bestScore: 0 });
     } catch (e) {
       console.error(e);
     } finally {
