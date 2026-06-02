@@ -4,17 +4,17 @@ import { Video, Brain, FileText, Trophy } from 'lucide-react';
 export function HeroVisual() {
   return (
     <div className="relative w-full aspect-square max-w-[560px] mx-auto">
-      {/* Soft gradient backdrop */}
-      <div className="absolute inset-[8%] rounded-full bg-gradient-to-br from-primary/20 via-purple/15 to-secondary/20 blur-2xl" />
-      <div className="absolute inset-[12%] rounded-full bg-gradient-to-br from-primary/10 via-purple/10 to-secondary/10 backdrop-blur-sm border border-white/30" />
+      {/* Soft gradient backdrop - purple/cyan */}
+      <div className="absolute inset-[8%] rounded-full bg-gradient-to-br from-purple/20 via-secondary/15 to-purple/20 blur-2xl" />
+      <div className="absolute inset-[12%] rounded-full bg-gradient-to-br from-purple/10 via-secondary/10 to-purple/10 backdrop-blur-sm border border-white/30" />
 
-      {/* Atom orbits */}
+      {/* Atom orbits - cyan/blue */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-[18%]"
       >
-        <div className="w-full h-full rounded-full border-2 border-primary/40" />
+        <div className="w-full h-full rounded-full border-2 border-secondary/50" />
       </motion.div>
       <motion.div
         animate={{ rotate: -360 }}
@@ -29,7 +29,7 @@ export function HeroVisual() {
         transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-[18%]"
       >
-        <div className="w-full h-full rounded-full border-2 border-purple/40" style={{ transform: 'rotateX(70deg) rotateZ(60deg)' }} />
+        <div className="w-full h-full rounded-full border-2 border-secondary/40" style={{ transform: 'rotateX(70deg) rotateZ(60deg)' }} />
       </motion.div>
 
       {/* Center hexagon with E */}
@@ -40,11 +40,10 @@ export function HeroVisual() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="relative"
         >
-          <svg width="180" height="200" viewBox="0 0 180 200" className="drop-shadow-[0_0_30px_hsl(var(--primary)/0.6)]">
+          <svg width="180" height="200" viewBox="0 0 180 200" className="drop-shadow-[0_0_30px_hsl(var(--purple)/0.6)]">
             <defs>
               <linearGradient id="hexGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="hsl(var(--primary))" />
-                <stop offset="50%" stopColor="hsl(var(--purple))" />
+                <stop offset="0%" stopColor="hsl(var(--purple))" />
                 <stop offset="100%" stopColor="hsl(var(--secondary))" />
               </linearGradient>
             </defs>
@@ -71,10 +70,10 @@ export function HeroVisual() {
 
       {/* Brand text under logo */}
       <div className="absolute left-1/2 -translate-x-1/2 bottom-[18%] text-center pointer-events-none">
-        <div className="text-2xl md:text-3xl font-black tracking-[0.2em] bg-gradient-to-r from-primary via-purple to-secondary bg-clip-text text-transparent">
+        <div className="text-2xl md:text-3xl font-black tracking-[0.2em] bg-gradient-to-r from-purple via-purple to-secondary bg-clip-text text-transparent">
           EDUVERSE
         </div>
-        <div className="text-[10px] md:text-xs tracking-[0.3em] text-primary/70 mt-1 font-semibold">
+        <div className="text-[10px] md:text-xs tracking-[0.3em] text-purple/70 mt-1 font-semibold">
           LEARN · PLAY · GROW
         </div>
       </div>
